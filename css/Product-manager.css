@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  color: white;
+  background-color: #212529;
+}
+
+a {
+  color: white !important;
+}
+
+#container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  max-height: 679px;
+  margin: 16px auto;
+}
+
+.product-container {
+  max-width: 1200px;
+  max-height: 679px;
+  margin: 30px auto;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: 600;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.user-info {
+  margin-right: 30px;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #888;
+}
+
+.more {
+  background-color: #e2e3e5;
+  font-weight: 900;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 20px;
+}
+
+.selectSort {
+  min-width: 130px;
+  min-height: 37px;
+  margin-right: 16px;
+}
+
+.searchTask {
+  min-width: 220px;
+  min-height: 37px;
+}
+
+th {
+  background-color: #f8f9fa !important;
+}
+
+select,
+input {
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.container-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1; /*cho footer xuống cuối cùng*/
+}
+
+footer {
+  background-color: #212529;
+  color: white;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  padding-top: 16px;
+}

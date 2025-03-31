@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  color: white;
+  background-color: #212529;
+}
+
+a {
+  color: white !important;
+}
+
+#container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  max-height: 679px;
+  margin: 50px auto;
+}
+
+input {
+  border: 1px solid #ebebed;
+  border-radius: 5px;
+  min-width: 433px;
+  min-height: 38px;
+}
+
+.sizeBtn-1 {
+  min-width: 61px;
+  min-height: 31px;
+}
+
+.sizeBtn-2 {
+  min-width: 41px;
+  min-height: 31px;
+}
+
+.btnPagination {
+  max-height: 36px;
+  min-height: 38px;
+  margin-left: -5px;
+  border: 1px solid #dfe3e6;
+  border-radius: 0px;
+}
+
+.container-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1; /*cho footer xuống cuối cùng*/
+}
+
+footer {
+  background-color: #212529;
+  color: white;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  padding-top: 16px;
+}

@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 533px;
+  max-height: 566px;
+  margin: 50px auto;
+}
+
+input,
+button {
+  width: 490px;
+  height: 65px;
+}
+
+input {
+  border: 1px solid #ebebed;
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.error {
+  color: red;
+  padding-right: 320px;
+}
