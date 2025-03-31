@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chi tiết dự án</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/Product-manager.css">
 </head>
 
 <body>
-    <nav class="nav d-flex justify-content-around">
+    <nav class="nav d-flex justify-content-around" style="padding: 13px 0px;">
         <span class="nav" style="padding-right: 200px;">
             <h4>Quản lý dự án</h4>
         </span>
@@ -57,11 +57,11 @@
 
                         <a href="mailto:annguyen@gil.com"
                             class="user-avatar d-flex justify-content-center align-items-center"
-                            style="background-color: #007bff;">AN</a>
+                            style="background-color: #8A2BE2;">BA</a>
                         <div id="users d-flex">
                             <div class="user-info">
-                                <div class="user-name">AN NGUYỄN</div>
-                                <div class="user-role">Project owenr</div>
+                                <div class="user-name">BÁCH NGUYỄN</div>
+                                <div class="user-role">Frontend developer</div>
                             </div>
                         </div>
 
@@ -71,7 +71,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between" style="width: 1200px;">
-                    <button class="btn btn-primary">+ Thêm nhiệm vụ</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewTask">+ Thêm nhiệm
+                        vụ</button>
                     <span>
                         <select name="" id="" class="selectSort text-center">
                             <option value="">Sắp xếp theo</option>
@@ -112,28 +113,45 @@
                                 </td>
                             </tr>
 
-                            <tr class="collapse" id="todoTasks">
+                            <tr class="collapse show" id="todoTasks">
                                 <td>Soạn thảo đề cương dự án</td>
-                                <td>An Nguyễn</td>
+                                <td class="text-center">An Nguyễn</td>
                                 <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                                <td class="text-center">02 - 24</td>
-                                <td class="text-center">02 - 27</td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
                                 <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
                                 <td class="text-center">
-                                    <button class="btn btn-warning btn-sm">Sửa</button>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                    <button class="btn btn-warning btn-sm me-3">Sửa</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteTask">Xóa</button>
                                 </td>
                             </tr>
-                            <tr class="collapse" id="todoTasks">
+
+                            <tr class="collapse show" id="todoTasks">
                                 <td>Soạn thảo đề cương dự án</td>
-                                <td>An Nguyễn</td>
-                                <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                                <td class="text-center">02 - 24</td>
-                                <td class="text-center">02 - 27</td>
-                                <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
+                                <td class="text-center">An Nguyễn</td>
+                                <td class="text-center"><span class="badge bg-warning">Trung bình</span></td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
+                                <td class="text-center"><span class="badge bg-warning">Có rủi ro</span></td>
                                 <td class="text-center">
-                                    <button class="btn btn-warning btn-sm">Sửa</button>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                    <button class="btn btn-warning btn-sm me-3">Sửa</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteTask">Xóa</button>
+                                </td>
+                            </tr>
+
+                            <tr class="collapse show" id="todoTasks">
+                                <td>Soạn thảo đề cương dự án</td>
+                                <td class="text-center">An Nguyễn</td>
+                                <td class="text-center"><span class="badge bg-danger">Cao</span></td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
+                                <td class="text-center"><span class="badge bg-danger">Trể hẹn</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-warning btn-sm me-3">Sửa</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteTask">Xóa</button>
                                 </td>
                             </tr>
                         </div>
@@ -150,17 +168,19 @@
                                 </td>
                             </tr>
 
-                            <tr class="collapse" id="inProgress">
-                                <td>Soạn thảo đề cương dự án</td>
-                                <td>An Nguyễn</td>
-                                <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                                <td class="text-center">02 - 24</td>
-                                <td class="text-center">02 - 27</td>
-                                <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
+                            <tr class="collapse show" id="inProgress">
+                                <td>Lên lịch kickoff</td>
+                                <td class="text-center">An Nguyễn</td>
+                                <td class="text-center"><span class="badge bg-warning">Trung bình</span></td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
+                                <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
+                                <td class="text-center"><span class="badge bg-warning">Có rủi ro</span></td>
                                 <td class="text-center">
-                                    <button class="btn btn-warning btn-sm">Sửa</button>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                    <button class="btn btn-warning btn-sm me-3">Sửa</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteTask">Xóa</button>
                                 </td>
+
                             </tr>
                         </div>
 
@@ -178,16 +198,8 @@
                             </tr>
 
                             <tr class="collapse" id="pending">
-                                <td>Soạn thảo đề cương dự án</td>
-                                <td>An Nguyễn</td>
-                                <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                                <td class="text-center">02 - 24</td>
-                                <td class="text-center">02 - 27</td>
-                                <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
-                                <td class="text-center">
-                                    <button class="btn btn-warning btn-sm">Sửa</button>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
+
+
                             </tr>
 
                         </div>
@@ -205,16 +217,7 @@
                             </tr>
 
                             <tr class="collapse" id="done">
-                                <td>Soạn thảo đề cương dự án</td>
-                                <td>An Nguyễn</td>
-                                <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                                <td class="text-center">02 - 24</td>
-                                <td class="text-center">02 - 27</td>
-                                <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
-                                <td class="text-center">
-                                    <button class="btn btn-warning btn-sm">Sửa</button>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
+
                             </tr>
 
                         </div>
@@ -230,7 +233,97 @@
         </footer>
     </div>
 
+    <!-- thêm nhiệm vụ mới -->
+    <div class="modal fade" id="addNewTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm/sửa nhiệm vụ</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column gap-4 addNewTask">
+                    <div>
+                        <label for="taskName">Tên nhiệm vụ</label>
+                        <input type="text" id="taskName">
+                    </div>
 
+                    <div>
+                        <label for="assignee">Người phụ trách</label>
+                        <select name="" id="assignee">
+                            <option value="">Chọn người phụ trách</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="status">Trạng thái</label>
+                        <select name="" id="status">
+                            <option value="">Chọn trạng thái nhiệm vụ</option>
+                            <option value="toDo">Việc cần làm</option>
+                            <option value="inProgress">Đang thực hiện</option>
+                            <option value="pending">Đang chờ</option>
+                            <option value="done">Đã hoàn thành</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="asignDate">Ngày bắt đầu</label>
+                        <input type="date" id="asignDate">
+                    </div>
+
+                    <div>
+                        <label for="dueDate">Hạn cuỗi</label>
+                        <input type="date" id="dueDate">
+                    </div>
+
+                    <div>
+                        <label for="priority">độ ưu tiên</label>
+                        <select name="" id="priority">
+                            <option value="">Chọn độ ưu tiên</option>
+                            <option value="high">Cao</option>
+                            <option value="low">Thấp</option>
+                            <option value="average">Trung bình</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="progress">Tiến độ</label>
+                        <select name="" id="progress">
+                            <option value="">Chọn Tiến độ</option>
+                            <option value="onSchedule">Đúng tiến độ</option>
+                            <option value="withRisk">Có rủi ro</option>
+                            <option value="Delayed">Trễ hẹn</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--xác xoá nhiệm vụ -->
+    <div class="modal fade" id="deleteTask" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Xác nhận xoá</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn chắc chắn muốn xoá dự án này?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-danger">Xoá</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

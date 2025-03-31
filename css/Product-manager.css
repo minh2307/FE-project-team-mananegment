@@ -19,7 +19,6 @@ a {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
-  max-height: 679px;
   margin: 16px auto;
 }
 
@@ -90,6 +89,18 @@ input {
 
 .content {
   flex-grow: 1; /*cho footer xuống cuối cùng*/
+}
+
+.addNewTask input {
+  width: 432px;
+  height: 44px;
+  margin-top: 5px;
+}
+
+.addNewTask select {
+  width: 432px;
+  height: 44px;
+  margin-top: 5px;
 }
 
 footer {
