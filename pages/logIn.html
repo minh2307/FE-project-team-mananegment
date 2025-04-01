@@ -15,29 +15,30 @@
 
         <form action="" class="form-container d-flex flex-column gap-4">
             <div>
-                <input type="text" class="form-control text-center error-input" id="fullName" placeholder="Họ và Tên"
-                    required>
-                <span class="error" id="error-fullName">không được để trống</span>
+                <input type="text" class="form-control text-center" id="fullName" placeholder="Họ và Tên">
+                <span class="error text-start" id="error-fullName"></span>
             </div>
             <div>
-                <input type="email" class="form-control text-center" id="locationEmail" placeholder="Địa chỉ email"
-                    required>
-                <span class="error" id="error-locationEmail">không được để trống</span>
+                <input type="email" class="form-control text-center" id="locationEmail" placeholder="Địa chỉ email">
+                <span class="error" id="error-locationEmail"></span>
             </div>
             <div>
-                <input type="passWord" class="form-control text-center" id="passWord" placeholder="Mật khẩu" required>
-                <span class="error" id="error-passWord">không được để trống</span>
+                <input type="passWord" class="form-control text-center" id="passWord" placeholder="Mật khẩu">
+                <span class="error" id="error-passWord"></span>
             </div>
             <div>
                 <input type="password" class="form-control text-center" id="confirmPassWord"
-                    placeholder="Xác nhận lại mật khẩu" required>
-                <span class="error" id="error-confirmPassWord">không được để trống</span>
+                    placeholder="Xác nhận lại mật khẩu">
+                <span class="error" id="error-confirmPassWord"></span>
             </div>
 
-            <button class="btn btn-primary">Đăng ký</button>
+            <button class="btn btn-primary" onclick="logIn(event)">Đăng ký</button>
             <span>Đã có tài khoản?<a href="/pages/register.html"> Đăng nhập</a></span>
         </form>
     </div>
+
+
+    <script src="/js/logIn.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

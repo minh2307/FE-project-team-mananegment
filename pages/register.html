@@ -18,18 +18,19 @@
                 <label for="locationEmail">Địa chỉ email</label>
                 <input type="email" class="form-control text-center" id="locationEmail" placeholder="Địa chỉ email"
                     required>
-                <!-- <span class="error" id="error-locationEmail">không được để trống</span> -->
             </div>
             <div class="mb-4">
                 <label for="passWord">Mật khẩu</label>
                 <input type="password" class="form-control text-center" id="passWord" placeholder="Mật khẩu">
-                <!-- <span class="error" id="error-passWord">không được để trống</span> -->
             </div>
 
-            <button class="btn btn-primary">Đăng nhập</button>
+            <button class="btn btn-primary" onclick="register(event)">Đăng nhập</button>
+            <span class="error text-center" id="error"></span>
             <span class="text-center">Chưa có tài khoản?<a href="/pages/logIn.html"> Đăng ký</a></span>
         </form>
     </div>
+
+    <script src="/js/register.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
