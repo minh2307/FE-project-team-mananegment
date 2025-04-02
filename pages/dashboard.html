@@ -18,7 +18,7 @@
         <span class="d-flex" style="padding-left: 200px;">
             <a class="nav-link active" aria-current="page" href="#" style="color:  white !important;">Dự án</a>
             <a class="nav-link" href="#">Nhiệm vụ của tôi</a>
-            <a class="nav-link" href="#">Đăng xuất</a>
+            <a class="nav-link" href="/pages/logIn.html" onclick="logOut()">Đăng xuất</a>
         </span>
     </nav>
 
@@ -29,8 +29,8 @@
                 <div class="d-flex justify-content-between mb-2">
                     <div>
 
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewTask"
-                            data-bs-whatever="@mdo">+ Thêm Dự Án</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewProject"
+                            data-bs-whatever="@mdo" onclick="add()">+ Thêm Dự Án</button>
 
 
 
@@ -46,7 +46,7 @@
                             <th class="col-3 text-center">Hành Động</th>
                         </tr>
                     </thead>
-                    <tbody id="contentTasks">
+                    <tbody id="contentProject">
 
                     </tbody>
                 </table>
@@ -65,19 +65,19 @@
 
 
     <!-- thêm/sửa dự án -->
-    <div class="modal fade" id="addNewTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewProject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm/sửa dự án</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Tên dự án</label>
-                            <input type="text" class="form-control error-input" id="recipient-name">
-                            <span class="error">Tên danh mục đã tồn tại</span>
+                            <label for="project-name" class="col-form-label">Tên dự án</label>
+                            <input type="text" class="form-control" id="project-name">
+                            <span class="error" id="error-addProject"></span>
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Mô tả dự án</label>
@@ -87,7 +87,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary ps-3 pe-3">Lưu</button>
+                    <button type="button" class="btn btn-primary ps-3 pe-3" c id="add-btn"
+                        onclick="addProject()">Lưu</button>
                 </div>
             </div>
         </div>
@@ -95,7 +96,7 @@
 
 
     <!-- xác nhận xoá dự án -->
-    <div class="modal fade" id="deleteTask" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -108,14 +109,15 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-danger">Xoá</button>
+                    <button type="button" class="btn btn-danger" id="confirm-deleteProject"
+                        data-bs-dismiss="modal">Xoá</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="/js/data.js"></script>
     <script src="/js/dashboard.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
