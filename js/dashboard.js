@@ -92,6 +92,8 @@ function renderProjects(indexPage) {
 }
 
 function add() {
+  let addBtn = document.getElementById("add-btn");
+  addBtn.removeAttribute("onclick");
   let add = document.getElementById("exampleModalLabel");
   add.textContent = `Thêm dự án`;
 
@@ -103,6 +105,8 @@ function add() {
   let errorSpan = document.getElementById("error-addProject");
   projectInput.classList.remove("error-input");
   errorSpan.textContent = "";
+
+  addBtn.setAttribute("onclick", `addProject()`);
 }
 
 function addProject() {
@@ -151,28 +155,57 @@ function addProject() {
 }
 
 function editProject(projectId) {
+  let addBtn = document.getElementById("add-btn");
+  addBtn.removeAttribute("onclick");
+  addBtn.setAttribute("onclick", `cfeditProject(${projectId})`);
   let add = document.getElementById("exampleModalLabel");
-  console.log(add);
-  console.log(projectId);
   add.textContent = `Sửa dự án`;
 
-  // Xoá lỗi và class lỗi nếu có
+  // Xóa lỗi và class lỗi nếu có
   let projectInput = document.getElementById("project-name");
   let errorSpan = document.getElementById("error-addProject");
   projectInput.classList.remove("error-input");
   errorSpan.textContent = "";
 
   let find = projects.find((el) => el.id === projectId);
+  if (find) {
+    projectInput.value = find.projectName;
+  } else {
+    console.error(`Không tìm thấy dự án với ID: ${projectId}`);
+  }
+}
 
-  projectInput.value = find.projectName;
+function cfeditProject(projectId) {
+  let errorProject = document.getElementById("error-addProject");
+  let addBtn = document.getElementById("add-btn");
+  let projectInput = document.getElementById("project-name");
+  let find = projects.find((el) => el.id === projectId);
 
-  if (projectInput.value !== find.projectName) {
-    projects[projectId].projectName = projectInput.value;
+  if (projectInput.value === "") {
+    errorProject.textContent = `Tên dự án không được để trống`;
+    projectInput.classList.add("error-input");
+    addBtn.removeAttribute("data-bs-dismiss");
+    return;
+  }
 
-    let indexPage = Math.ceil(projectId / 5);
-    renderProjects(indexPage);
+  if (find) {
+    // Kiểm tra xem giá trị mới có khác giá trị cũ không
+    if (projectInput.value && projectInput.value !== find.projectName) {
+      find.projectName = projectInput.value;
 
-    localStorage.setItem("projects", JSON.stringify("projects"));
+      addBtn.setAttribute("data-bs-dismiss", "modal");
+      projectInput.value = "";
+      addBtn.click();
+      addBtn.removeAttribute("data-bs-dismiss");
+      errorProject.textContent = ``;
+      projectInput.classList.remove("error-input");
+
+      let indexPage = Math.ceil((projects.indexOf(find) + 1) / 5);
+      renderProjects(indexPage);
+      localStorage.setItem("projects", JSON.stringify(projects));
+    }
+  } else {
+    console.error(`Không tìm thấy dự án với ID: ${projectId}`);
   }
 }
 
