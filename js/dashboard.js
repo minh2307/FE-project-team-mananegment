@@ -14,32 +14,32 @@ function pagination(activePage = 1, filteredProjects) {
 
   // Nút Previous
   pagination.innerHTML += `
-        <button class="btn btn-outline-primary btnPagination" id="previous" 
-                style="border-radius: 5px 0px 0px 5px; color: #4E5A66; opacity: ${
-                  activePage === 1 ? "0.4" : "1"
-                };" 
-                onclick="renderProjects(${activePage - 1})" 
-                ${activePage === 1 ? "disabled" : ""}><</button>
-    `;
+          <button class="btn btn-outline-primary btnPagination" id="previous" 
+                  style="border-radius: 5px 0px 0px 5px; color: #4E5A66; opacity: ${
+                    activePage === 1 ? "0.4" : "1"
+                  };" 
+                  onclick="renderProjects(${activePage - 1})" 
+                  ${activePage === 1 ? "disabled" : ""}><</button>
+      `;
 
   for (let i = 1; i <= totalPages; i++) {
     pagination.innerHTML += `
-            <button class="btn btn-outline-primary btnPagination ${
-              i === activePage ? "active" : ""
-            }" 
-                    onclick="renderProjects(${i})">${i}</button>
-        `;
+              <button class="btn btn-outline-primary btnPagination ${
+                i === activePage ? "active" : ""
+              }" 
+                      onclick="renderProjects(${i})">${i}</button>
+          `;
   }
 
   // Nút Next
   pagination.innerHTML += `
-        <button class="btn btn-outline-primary btnPagination" id="next"
-                style="border-radius: 0px 5px 5px 0px; color: #4E5A66; opacity: ${
-                  activePage === totalPages ? "0.4" : "1"
-                };" 
-                onclick="renderProjects(${activePage + 1})" 
-                ${activePage === totalPages ? "disabled" : ""}>></button>
-    `;
+          <button class="btn btn-outline-primary btnPagination" id="next"
+                  style="border-radius: 0px 5px 5px 0px; color: #4E5A66; opacity: ${
+                    activePage === totalPages ? "0.4" : "1"
+                  };" 
+                  onclick="renderProjects(${activePage + 1})" 
+                  ${activePage === totalPages ? "disabled" : ""}>></button>
+      `;
 }
 
 //hàm in dự án
@@ -49,11 +49,11 @@ function renderProjects(indexPage) {
 
   if (loggedInUserId) {
     // Lọc ra các dự án có members hợp lệ (!null)
-    const validProjects = projects.filter((project) =>
+    let validProjects = projects.filter((project) =>
       Array.isArray(project.members)
     );
     //lọc ra dự án bằng userId
-    const isProjectOwner = validProjects.some((project) =>
+    let isProjectOwner = validProjects.some((project) =>
       project.members.some(
         (member) =>
           member.userId === loggedInUserId && member.role === "Project owner"
@@ -76,16 +76,16 @@ function renderProjects(indexPage) {
 
   currentData.forEach((element) => {
     contentProjects.innerHTML += `
-            <tr>
-                <td class="p-3 text-center">${element.id}</td>
-                <td class="p-3">${element.projectName}</td>
-                <td class="d-flex justify-content-around">
-                    <button class="btn btn-warning sizeBtn-1" data-bs-toggle="modal" data-bs-target="#addNewProject" onclick="editProject(${element.id})">Sửa</button>
-                    <button class="btn btn-danger sizeBtn-2" data-bs-toggle="modal" data-bs-target="#deleteProject">Xoá</button>
-                    <button class="btn btn-primary sizeBtn-1">Chi tiết</button>
-                </td>
-            </tr>
-        `;
+              <tr>
+                  <td class="p-3 text-center">${element.id}</td>
+                  <td class="p-3">${element.projectName}</td>
+                  <td class="d-flex justify-content-around">
+                      <button class="btn btn-warning sizeBtn-1" data-bs-toggle="modal" data-bs-target="#addNewProject" onclick="editProject(${element.id})">Sửa</button>
+                      <button class="btn btn-danger sizeBtn-2" data-bs-toggle="modal" data-bs-target="#deleteProject" onclick="deleteProject(${element.id})">Xoá</button>
+                      <button class="btn btn-primary sizeBtn-1">Chi tiết</button>
+                  </td>
+              </tr>
+          `;
   });
 
   pagination(indexPage, filteredProjects);
@@ -94,6 +94,15 @@ function renderProjects(indexPage) {
 function add() {
   let add = document.getElementById("exampleModalLabel");
   add.textContent = `Thêm dự án`;
+
+  // Reset lại form khi mở modal
+  document.getElementById("form").reset();
+
+  // Xoá lỗi và class lỗi nếu có
+  let projectInput = document.getElementById("project-name");
+  let errorSpan = document.getElementById("error-addProject");
+  projectInput.classList.remove("error-input");
+  errorSpan.textContent = "";
 }
 
 function addProject() {
@@ -121,11 +130,12 @@ function addProject() {
     return;
   }
 
-  errorProject.textContent = ``;
-  project.classList.remove("error-input");
   addBtn.setAttribute("data-bs-dismiss", "modal");
+  project.value = "";
   addBtn.click();
   addBtn.removeAttribute("data-bs-dismiss");
+  errorProject.textContent = ``;
+  project.classList.remove("error-input");
 
   // Thêm vào danh sách
   projects.push({
@@ -135,15 +145,52 @@ function addProject() {
 
   localStorage.setItem("projects", JSON.stringify(projects));
 
-  project.value = "";
+  let indexPage = Math.ceil(projects.length / 5);
+
+  renderProjects(indexPage);
 }
 
-function editProject(projectIdId) {
+function editProject(projectId) {
   let add = document.getElementById("exampleModalLabel");
   console.log(add);
-
+  console.log(projectId);
   add.textContent = `Sửa dự án`;
-  console.log(projectIdId);
+
+  // Xoá lỗi và class lỗi nếu có
+  let projectInput = document.getElementById("project-name");
+  let errorSpan = document.getElementById("error-addProject");
+  projectInput.classList.remove("error-input");
+  errorSpan.textContent = "";
+
+  let find = projects.find((el) => el.id === projectId);
+
+  projectInput.value = find.projectName;
+
+  if (projectInput.value !== find.projectName) {
+    projects[projectId].projectName = projectInput.value;
+
+    let indexPage = Math.ceil(projectId / 5);
+    renderProjects(indexPage);
+
+    localStorage.setItem("projects", JSON.stringify("projects"));
+  }
+}
+
+function deleteProject(projectId) {
+  let cfDelProject = document.getElementById("confirm-deleteProject");
+
+  cfDelProject.setAttribute("onclick", `cfDelProject(${projectId})`);
+
+  console.log(cfDelProject);
+}
+
+function cfDelProject(projectId) {
+  projects.splice(projectId - 1, 1);
+
+  let indexPage = Math.ceil(projectId / 5);
+
+  renderProjects(indexPage);
+  localStorage.setItem("projects", JSON.stringify(projects));
 }
 
 function logOut() {

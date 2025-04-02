@@ -73,7 +73,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="form-">
                         <div class="mb-3">
                             <label for="project-name" class="col-form-label">Tên dự án</label>
                             <input type="text" class="form-control" id="project-name">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary ps-3 pe-3" c id="add-btn"
+                    <button type="button" class="btn btn-primary ps-3 pe-3" id="add-btn"
                         onclick="addProject()">Lưu</button>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                     Bạn chắc chắn muốn xoá dự án này?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-secondary flex-w" data-bs-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-danger" id="confirm-deleteProject"
                         data-bs-dismiss="modal">Xoá</button>
                 </div>
