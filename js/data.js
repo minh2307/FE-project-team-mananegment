@@ -4,8 +4,8 @@ tasks = [
     taskName: "Xây dựng website thương mại điện tử",
     assigneeId: 1,
     projectId: 1,
-    asignDate: "2025-03-24",
-    dueDate: "2025-03-26",
+    asignDate: "03-24",
+    dueDate: "03-26",
     priority: "Thấp",
     progress: "Đúng tiến độ",
     status: "To do",
@@ -22,6 +22,30 @@ users = [
   {
     id: 2,
     fullName: "An Nguyễn",
+    email: "nguyenquanan@gamil.com",
+    password: "123456789",
+  },
+  {
+    id: 3,
+    fullName: "Bách Nguyễn",
+    email: "nguyenquanan@gamil.com",
+    password: "123456789",
+  },
+  {
+    id: 4,
+    fullName: "Minh Nguyễn",
+    email: "minh23923@gmail.com",
+    password: "123456789",
+  },
+  {
+    id: 5,
+    fullName: "An Nguyễn",
+    email: "nguyenquanan@gamil.com",
+    password: "123456789",
+  },
+  {
+    id: 6,
+    fullName: "Bách Nguyễn",
     email: "nguyenquanan@gamil.com",
     password: "123456789",
   },
@@ -47,6 +71,8 @@ projects = [
   {
     id: 2,
     projectName: "Phát triển ứng dụng di động",
+    description:
+      "Giải pháp phát triển ứng dụng di động toàn diện, biến ý tưởng của bạn thành ứng dụng thực tế, hiện đại, hoạt động mượt mà trên mọi thiết bị.",
     members: [
       {
         userId: 3,
@@ -61,6 +87,8 @@ projects = [
   {
     id: 3,
     projectName: "Quản lý dữ liệu khách hàng",
+    description:
+      "Quản lý dữ liệu khách hàng di động giúp doanh nghiệp lưu trữ, cập nhật và theo dõi thông tin khách hàng mọi lúc, mọi nơi",
     members: [
       {
         userId: 5,

@@ -111,3 +111,8 @@ footer {
   height: 56px;
   padding-top: 16px;
 }
+
+.sizeBtn {
+  min-width: 41px;
+  min-height: 31px;
+}

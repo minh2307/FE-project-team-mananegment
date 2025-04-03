@@ -21,32 +21,31 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderProduct(projectId) {
   let nameProject = document.getElementById("nameProject");
   let findProject = projects.find((el) => el.id === projectId);
-  if (findProject) {
-    nameProject.textContent = findProject.projectName;
-  } else {
+  if (!findProject) {
     console.error(`Không tìm thấy dự án với ID: ${projectId}`);
     return;
   }
 
-  //renderNameProject
   nameProject.textContent = findProject.projectName;
 
-  //renderDescription
   let description = document.getElementById("description");
   description.textContent = findProject.description;
 
-  //renderMember
   let userName1 = document.getElementsByClassName("user-name")[0];
   let userName2 = document.getElementsByClassName("user-name")[1];
-
   let userAvatar1 = document.getElementsByClassName("user-avatar")[0];
   let userAvatar2 = document.getElementsByClassName("user-avatar")[1];
 
   if (findProject.members && findProject.members.length >= 2) {
-    let userFullName1 = users[findProject.members[0].userId - 1].fullName;
-    let userFullName2 = users[findProject.members[1].userId - 1].fullName;
+    const user1 = users[findProject.members[0].userId - 1];
+    const user2 = users[findProject.members[1].userId - 1];
+    if (!user1 || !user2) {
+      console.error("Không tìm thấy user cho một hoặc cả hai members");
+      return;
+    }
 
-    console.log(userFullName1);
+    let userFullName1 = user1.fullName;
+    let userFullName2 = user2.fullName;
 
     let text1 = userFullName1.trim().split(" ");
     let initials1 = text1
@@ -54,7 +53,7 @@ function renderProduct(projectId) {
       .join("")
       .toUpperCase();
 
-    let text2 = userFullName1.trim().split(" ");
+    let text2 = userFullName2.trim().split(" ");
     let initials2 = text2
       .map((word) => word.charAt(0))
       .join("")
@@ -64,14 +63,37 @@ function renderProduct(projectId) {
     userName2.textContent = userFullName2;
     userAvatar1.textContent = initials1;
     userAvatar2.textContent = initials2;
-    userAvatar1.href = `mailto:${
-      users[findProject.members[0].userId - 1].email
-    }`;
-    userAvatar2.href = `mailto:${
-      users[findProject.members[1].userId - 1].email
-    }`;
+    userAvatar1.href = `mailto:${user1.email}`;
+    userAvatar2.href = `mailto:${user2.email}`;
 
     console.log(initials1);
-    console.log(users[findProject.members[1].userId - 1].email);
+    console.log(user2.email);
   }
 }
+
+function renderTable() {
+  let toDo = document.getElementById("toDo");
+
+  let renderToDo = tasks.filter((el) => el.status === "To do");
+
+  console.log(renderToDo);
+
+  renderToDo.forEach((task) => {
+    let user = users.find((u) => u.id === task.assigneeId);
+
+    toDo.innerHTML += `<tr class="collapse show" id="todoTasks">
+                <td>${task.taskName}</td>
+                <td class="text-center">${user.fullName}</td>
+                <td class="text-center"><span class="badge bg-info">${task.priority}</span></td>
+                <td class="text-center" style="color: #0D6EFD;">${task.asignDate}</td>
+                <td class="text-center" style="color: #0D6EFD;">${task.dueDate}</td>
+                <td class="text-center"><span class="badge bg-success">${task.progress}</span></td> 
+                <td class="text-center">
+                    <button class="btn btn-warning sizeBtn me-3">Sửa</button>
+                    <button class="btn btn-danger sizeBtn" data-bs-toggle="modal" data-bs-target="#deleteTask">Xóa</button>
+                </td>
+            </tr>`;
+  });
+}
+
+renderTable();
