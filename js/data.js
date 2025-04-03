@@ -1,16 +1,16 @@
-// tasks = [
-//   {
-//     id: 1,
-//     taskName: "Xây dựng website thương mại điện tử",
-//     assigneeId: 1,
-//     projectId: 1,
-//     asignDate: "2025-03-24",
-//     dueDate: "2025-03-26",
-//     priority: "Thấp",
-//     progress: "Đúng tiến độ",
-//     status: "To do",
-//},
-// ];
+tasks = [
+  {
+    id: 1,
+    taskName: "Xây dựng website thương mại điện tử",
+    assigneeId: 1,
+    projectId: 1,
+    asignDate: "2025-03-24",
+    dueDate: "2025-03-26",
+    priority: "Thấp",
+    progress: "Đúng tiến độ",
+    status: "To do",
+  },
+];
 
 users = [
   {
@@ -31,6 +31,8 @@ projects = [
   {
     id: 1,
     projectName: "Xây dựng website thương mại điện tử",
+    description:
+      "Dự án nhằn phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh toán và quán lý sản phẩm",
     members: [
       {
         userId: 1,

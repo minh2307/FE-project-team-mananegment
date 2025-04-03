@@ -17,7 +17,7 @@
         <span class="d-flex" style="padding-left: 200px;">
             <a class="nav-link active" aria-current="page" href="#" style="color:  white !important;">Dự án</a>
             <a class="nav-link" href="#">Nhiệm vụ của tôi</a>
-            <a class="nav-link" href="#">Đăng xuất</a>
+            <a class="nav-link" href="/pages/logIn.html" onclick="logOut()">Đăng xuất</a>
         </span>
     </nav>
 
@@ -28,7 +28,7 @@
             <div class="product-container">
 
                 <div class="d-flex justify-content-between mb-3">
-                    <h2>Xây dựng website thương mại điện tử</h2>
+                    <h2 id="nameProject">Xây dựng website thương mại điện tử</h2>
                     <span class="d-flex flex-wrap">
                         <h2>Thành viên</h2>
                         <button class="btn btn-outline-secondary ms-5">+ Thêm thành viên</button>
@@ -37,7 +37,8 @@
 
                 <div class="d-flex mb-4" style="width: 1200px;">
 
-                    <p class="col-8" style="width: 600px;">Dự án nhằn phát triển một nền tảng thương mại điện tử với các
+                    <p class="col-8" style="width: 600px;" id="description">Dự án nhằn phát triển một nền tảng thương
+                        mại điện tử với các
                         tính
                         năng như giỏ
                         hàng, thanh toán và quán
@@ -241,10 +242,10 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm/sửa nhiệm vụ</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex flex-column gap-4 addNewTask">
+                <div class="modal-body d-flex flex-column gap-4 addNewTask ">
                     <div>
                         <label for="taskName">Tên nhiệm vụ</label>
-                        <input type="text" id="taskName">
+                        <input type="text" id="taskName" class="w-100">
                     </div>
 
                     <div>
@@ -325,6 +326,9 @@
         </div>
     </div>
 
+
+    <script src="/js/data.js"></script>
+    <script src="/js/product-manager.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

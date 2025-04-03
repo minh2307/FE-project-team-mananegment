@@ -82,7 +82,7 @@ function renderProjects(indexPage) {
                   <td class="d-flex justify-content-around">
                       <button class="btn btn-warning sizeBtn-1" data-bs-toggle="modal" data-bs-target="#addNewProject" onclick="editProject(${element.id})">Sửa</button>
                       <button class="btn btn-danger sizeBtn-2" data-bs-toggle="modal" data-bs-target="#deleteProject" onclick="deleteProject(${element.id})">Xoá</button>
-                      <button class="btn btn-primary sizeBtn-1">Chi tiết</button>
+                      <button class="btn btn-primary sizeBtn-1" onclick="productManager(${element.id})">Chi tiết</button>
                   </td>
               </tr>
           `;
@@ -225,6 +225,14 @@ function cfDelProject(projectId) {
   renderProjects(indexPage);
   localStorage.setItem("projects", JSON.stringify(projects));
 }
+
+function productManager(projectId) {
+  localStorage.setItem("projectId", JSON.stringify(projectId));
+
+  location.href = `/pages/product-manager.html`;
+}
+
+function findProject() {}
 
 function logOut() {
   localStorage.removeItem("savedEmail");
