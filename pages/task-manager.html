@@ -95,146 +95,60 @@
                             <th class="col-2">Hành Động</th>
                         </tr>
                     </thead>
-                    <tbody id="toDo">
-                        <tr>
-                            <td colspan="7">
-                                <span type="button" data-bs-toggle="collapse" data-bs-target="#todoTasks"
-                                    style="font-weight: 700;">
-                                    <img src="/assets/img/Triangle@2x.png" alt="" style="width: 15px; height: 15px;"> To
-                                    do
-                                </span>
-                            </td>
-                        </tr>
 
-                        <tr class="collapse show" id="todoTasks">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td class="text-center">An Nguyễn</td>
-                            <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
-                            <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
-                            <td class="text-center">
-                                <button class="btn btn-warning sizeBtn me-3">Sửa</button>
-                                <button class="btn btn-danger sizeBtn" data-bs-toggle="modal"
-                                    data-bs-target="#deleteTask">Xóa</button>
-                            </td>
-                        </tr>
-
-                        <tr class="collapse show" id="todoTasks">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td class="text-center">An Nguyễn</td>
-                            <td class="text-center"><span class="badge bg-warning">Trung bình</span></td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
-                            <td class="text-center"><span class="badge bg-warning">Có rủi ro</span></td>
-                            <td class="text-center">
-                                <button class="btn btn-warning sizeBtn me-3">Sửa</button>
-                                <button class="btn btn-danger sizeBtn" data-bs-toggle="modal"
-                                    data-bs-target="#deleteTask">Xóa</button>
-                            </td>
-                        </tr>
-
-                        <tr class="collapse show" id="todoTasks">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td class="text-center">An Nguyễn</td>
-                            <td class="text-center"><span class="badge bg-danger">Cao</span></td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
-                            <td class="text-center"><span class="badge bg-danger">Trể hẹn</span></td>
-                            <td class="text-center">
-                                <button class="btn btn-warning sizeBtn me-3">Sửa</button>
-                                <button class="btn btn-danger sizeBtn" data-bs-toggle="modal"
-                                    data-bs-target="#deleteTask">Xóa</button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="7">
+                            <span type="button" style="font-weight: 700;" onclick="renderToDo()">
+                                <img src="/assets/img/Triangle@2x.png" alt="" style="width: 15px; height: 15px;"> To
+                                do
+                            </span>
+                        </td>
+                    </tr>
+                    <tbody id="toDo" class="showStatus">
 
                     </tbody>
 
-                    <tbody id="inProgress">
-                        <tr>
-                            <td colspan="7">
-                                <span type="button" data-bs-toggle="collapse" data-bs-target="#inProgress"
-                                    style="font-weight: 700;">
-                                    <img src="/assets/img/Triangle@2x.png" alt="" style="width: 15px; height: 15px;"> In
-                                    Progress
-                                </span>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="7">
+                            <span type="button" style="font-weight: 700;" onclick="renderInProgress()">
+                                <img src="/assets/img/Triangle@2x.png" alt="" style="width: 15px; height: 15px;"> In
+                                Progress
+                            </span>
+                        </td>
+                    </tr>
 
-                        <tr class="collapse show" id="inProgress">
-                            <td>Lên lịch kickoff</td>
-                            <td class="text-center">An Nguyễn</td>
-                            <td class="text-center"><span class="badge bg-warning">Trung bình</span></td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
-                            <td class="text-center"><span class="badge bg-warning">Có rủi ro</span></td>
-                            <td class="text-center">
-                                <button class="btn btn-warning sizeBtn me-3">Sửa</button>
-                                <button class="btn btn-danger sizeBtn" data-bs-toggle="modal"
-                                    data-bs-target="#deleteTask">Xóa</button>
-                            </td>
-
-                        </tr>
-                    </tbody>
-
-
-                    <tbody id="pending">
-
-                        <tr>
-                            <td colspan="7">
-                                <span type="button" data-bs-toggle="collapse" data-bs-target="#pending"
-                                    style="font-weight: 700;">
-                                    <img src="/assets/img/Triangle-1.png" alt="" style="width: 15px; height: 15px;">
-                                    Pending
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr class="collapse" id="pending">
-                        <tr class="collapse " id="pending">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td class="text-center">An Nguyễn</td>
-                            <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
-                            <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
-                            <td class="text-center">
-                                <button class="btn btn-warning sizeBtn me-3">Sửa</button>
-                                <button class="btn btn-danger sizeBtn" data-bs-toggle="modal"
-                                    data-bs-target="#deleteTask">Xóa</button>
-                            </td>
-                        </tr>
-                        </tr>
+                    <tbody id="inProgress" class="showStatus">
 
                     </tbody>
 
-                    <tbody id="done">
 
-                        <tr>
-                            <td colspan="7">
-                                <span type="button" data-bs-toggle="collapse" data-bs-target="#done"
-                                    style="font-weight: 700;">
-                                    <img src="/assets/img/Triangle-1.png" alt="" style="width: 15px; height: 15px;">
-                                    Done
-                                </span>
-                            </td>
-                        </tr>
 
-                        <tr class="collapse" id="done">
-                        <tr class="collapse " id="done">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td class="text-center">An Nguyễn</td>
-                            <td class="text-center"><span class="badge bg-info">Thấp</span></td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 24</td>
-                            <td class="text-center" style="color: #0D6EFD;">02 - 27</td>
-                            <td class="text-center"><span class="badge bg-success">Đúng tiến độ</span></td>
-                            <td class="text-center">
-                                <button class="btn btn-warning sizeBtn me-3">Sửa</button>
-                                <button class="btn btn-danger sizeBtn" data-bs-toggle="modal"
-                                    data-bs-target="#deleteTask">Xóa</button>
-                            </td>
-                        </tr>
-                        </tr>
+
+                    <tr>
+                        <td colspan="7">
+                            <span type="button" style="font-weight: 700;" onclick="renderPending()">
+                                <img src="/assets/img/Triangle-1.png" alt="" style="width: 15px; height: 15px;">
+                                Pending
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tbody id="pending" class="showStatus">
+
+                    </tbody>
+
+
+
+                    <tr>
+                        <td colspan="7">
+                            <span type="button" style="font-weight: 700;" onclick="renderDone()">
+                                <img src="/assets/img/Triangle-1.png" alt="" style="width: 15px; height: 15px;">
+                                Done
+                            </span>
+                        </td>
+                    </tr>
+                    <tbody id="done" class="showStatus">
+                    </tbody>
 
                     </tbody>
                 </table>

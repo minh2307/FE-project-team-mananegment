@@ -71,23 +71,68 @@ function renderProduct(projectId) {
   }
 }
 
-function renderTable() {
-  let toDo = document.getElementById("toDo");
+function renderToDo() {
+  let renderToDo = tasks.filter((el) => el.status.toLowerCase() === "to do");
 
-  let renderToDo = tasks.filter((el) => el.status === "To do");
+  renderStatusTask(renderToDo, "toDo");
+}
 
-  console.log(renderToDo);
+function renderInProgress() {
+  let renderInProgress = tasks.filter(
+    (el) => el.status.toLowerCase() === "in progress"
+  );
 
-  renderToDo.forEach((task) => {
+  renderStatusTask(renderInProgress, "inProgress");
+}
+
+function renderPending() {
+  let renderPending = tasks.filter(
+    (el) => el.status.toLowerCase() === "pending"
+  );
+
+  renderStatusTask(renderPending, "pending");
+}
+
+function renderDone() {
+  let renderDone = tasks.filter((el) => el.status.toLowerCase() === "done");
+
+  renderStatusTask(renderDone, "done");
+}
+
+function renderStatusTask(listStatus, list) {
+  console.log("check");
+
+  // tìm tên người phụ trách
+  let status = document.getElementById(`${list}`);
+  status.classList.toggle("showStatus");
+  status.innerHTML = "";
+
+  listStatus.forEach((task) => {
     let user = users.find((u) => u.id === task.assigneeId);
 
-    toDo.innerHTML += `<tr class="collapse show" id="todoTasks">
+    let priority = task.priority.toLowerCase().trim();
+    let btnPriority =
+      priority === "thấp"
+        ? "bg-info"
+        : priority === "trung bình"
+        ? "bg-warning"
+        : "bg-danger";
+
+    let progress = task.progress.toLowerCase().trim();
+    let btnProgress =
+      progress === "trễ"
+        ? "bg-danger"
+        : progress === "có rủi ro"
+        ? "bg-warning"
+        : "bg-success";
+
+    status.innerHTML += `<tr>
                 <td>${task.taskName}</td>
                 <td class="text-center">${user.fullName}</td>
-                <td class="text-center"><span class="badge bg-info">${task.priority}</span></td>
+                <td class="text-center"><span class="badge ${btnPriority}">${task.priority}</span></td>
                 <td class="text-center" style="color: #0D6EFD;">${task.asignDate}</td>
                 <td class="text-center" style="color: #0D6EFD;">${task.dueDate}</td>
-                <td class="text-center"><span class="badge bg-success">${task.progress}</span></td> 
+                <td class="text-center"><span class="badge ${btnProgress}">${task.progress}</span></td> 
                 <td class="text-center">
                     <button class="btn btn-warning sizeBtn me-3">Sửa</button>
                     <button class="btn btn-danger sizeBtn" data-bs-toggle="modal" data-bs-target="#deleteTask">Xóa</button>
@@ -95,5 +140,3 @@ function renderTable() {
             </tr>`;
   });
 }
-
-renderTable();

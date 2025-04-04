@@ -46,8 +46,15 @@ function register(e) {
     locationEmail.classList.add("error-input");
     isValid = false;
   } else {
-    errorEmail.textContent = "";
-    locationEmail.classList.remove("error-input");
+    let checkEmail = users.some((user) => user.email === email); // Sửa locationEmail thành email
+    if (checkEmail) {
+      errorEmail.textContent = "Email này đã được đăng ký.";
+      locationEmail.classList.add("error-input");
+      isValid = false;
+    } else {
+      errorEmail.textContent = "";
+      locationEmail.classList.remove("error-input");
+    }
   }
 
   // Kiểm tra Mật khẩu
@@ -92,6 +99,6 @@ function register(e) {
 
     document.querySelector("form").reset();
 
-    location.href = "/pages/logIn.html";
+    location.href = "/pages/dashboard.html";
   }
 }

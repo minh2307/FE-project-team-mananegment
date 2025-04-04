@@ -248,7 +248,10 @@ function deleteProject(projectId) {
 }
 
 function cfDelProject(projectId) {
-  projects.splice(projectId - 1, 1);
+  let deleteIndex = projects.findIndex((el) => el.id === projectId);
+  console.log(deleteIndex);
+
+  projects.splice(deleteIndex, 1);
 
   let indexPage = Math.ceil(projectId / 5);
 
