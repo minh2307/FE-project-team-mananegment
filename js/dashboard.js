@@ -206,37 +206,42 @@ function editProject(projectId) {
 }
 
 function cfeditProject(projectId) {
-  let errorProject = document.getElementById("error-addProject");
-  let addBtn = document.getElementById("add-btn");
-  let projectInput = document.getElementById("project-name");
-  let find = projects.find((el) => el.id === projectId);
+  let modal = bootstrap.Modal.getInstance(
+    document.getElementById("addNewProject")
+  );
 
-  if (projectInput.value === "") {
+  let errorProject = document.getElementById("error-addProject");
+  // let addBtn = document.getElementById("add-btn");
+  let projectInput = document.getElementById("project-name");
+  let newName = projectInput.value.trim();
+  let newDescription = document.getElementById("message-text");
+
+  let project = projects.find((el) => el.id === projectId);
+
+  if (newName === "") {
     errorProject.textContent = `Tên dự án không được để trống`;
     projectInput.classList.add("error-input");
-    addBtn.removeAttribute("data-bs-dismiss");
     return;
   }
 
-  if (find) {
-    // Kiểm tra xem giá trị mới có khác giá trị cũ không
-    if (projectInput.value && projectInput.value !== find.projectName) {
-      find.projectName = projectInput.value;
-
-      addBtn.setAttribute("data-bs-dismiss", "modal");
-      projectInput.value = "";
-      addBtn.click();
-      addBtn.removeAttribute("data-bs-dismiss");
-      errorProject.textContent = ``;
-      projectInput.classList.remove("error-input");
-
-      let indexPage = Math.ceil((projects.indexOf(find) + 1) / 5);
-      renderProjects(indexPage);
-      localStorage.setItem("projects", JSON.stringify(projects));
-    }
-  } else {
-    console.error(`Không tìm thấy dự án với ID: ${projectId}`);
+  if (newName === project.projectName) {
+    errorProject.textContent = `Tên dự án chưa thay đổi`;
+    projectInput.classList.add("error-input");
+    return;
   }
+
+  project.projectName = newName;
+  project.description = newDescription.value.trim();
+
+  localStorage.setItem("projects", JSON.stringify(projects));
+  let indexPage = Math.ceil((projects.indexOf(project) + 1) / 5);
+  renderProjects(indexPage);
+
+  projectInput.value = "";
+  errorProject.textContent = "";
+  projectInput.classList.remove("error-input");
+
+  modal.hide();
 }
 
 function deleteProject(projectId) {

@@ -169,63 +169,70 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex flex-column gap-4 addNewTask " style="padding: 10px 25px;">
-                    <div>
-                        <label for="taskName">Tên nhiệm vụ</label>
-                        <input type="text" id="taskName" class="w-100">
+
+                    <div id="addEdit-task">
+                        <div>
+                            <label for="taskName">Tên nhiệm vụ</label>
+                            <input type="text" id="taskName" class="w-100">
+                            <span class="error" id="error-nameTask"></span>
+                        </div>
+
+                        <div>
+                            <label for="assignee">Người phụ trách</label>
+                            <select name="" id="assignee" class="w-100">
+                                <option value="">Chọn người phụ trách</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="status">Trạng thái</label>
+                            <select name="" id="status" class="w-100">
+                                <option value="">Chọn trạng thái nhiệm vụ</option>
+                                <option value="toDo">Việc cần làm</option>
+                                <option value="inProgress">Đang thực hiện</option>
+                                <option value="pending">Đang chờ</option>
+                                <option value="done">Đã hoàn thành</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="asignDate">Ngày bắt đầu</label>
+                            <input type="date" id="asignDate" class="w-100">
+                        </div>
+
+                        <div>
+                            <label for="dueDate">Hạn cuỗi</label>
+                            <input type="date" id="dueDate" class="w-100">
+                        </div>
+
+                        <div>
+                            <label for="priority">độ ưu tiên</label>
+                            <select name="" id="priority" class="w-100">
+                                <option value="">Chọn độ ưu tiên</option>
+                                <option value="high">Cao</option>
+                                <option value="low">Thấp</option>
+                                <option value="average">Trung bình</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="progress">Tiến độ</label>
+                            <select name="" id="progress" class="w-100">
+                                <option value="">Chọn Tiến độ</option>
+                                <option value="onSchedule">Đúng tiến độ</option>
+                                <option value="withRisk">Có rủi ro</option>
+                                <option value="Delayed">Trễ hẹn</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="assignee">Người phụ trách</label>
-                        <select name="" id="assignee" class="w-100">
-                            <option value="">Chọn người phụ trách</option>
-                        </select>
-                    </div>
+                    <div id="addMember">
 
-                    <div>
-                        <label for="status">Trạng thái</label>
-                        <select name="" id="status" class="w-100">
-                            <option value="">Chọn trạng thái nhiệm vụ</option>
-                            <option value="toDo">Việc cần làm</option>
-                            <option value="inProgress">Đang thực hiện</option>
-                            <option value="pending">Đang chờ</option>
-                            <option value="done">Đã hoàn thành</option>
-                        </select>
                     </div>
-
-                    <div>
-                        <label for="asignDate">Ngày bắt đầu</label>
-                        <input type="date" id="asignDate" class="w-100">
-                    </div>
-
-                    <div>
-                        <label for="dueDate">Hạn cuỗi</label>
-                        <input type="date" id="dueDate" class="w-100">
-                    </div>
-
-                    <div>
-                        <label for="priority">độ ưu tiên</label>
-                        <select name="" id="priority" class="w-100">
-                            <option value="">Chọn độ ưu tiên</option>
-                            <option value="high">Cao</option>
-                            <option value="low">Thấp</option>
-                            <option value="average">Trung bình</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="progress">Tiến độ</label>
-                        <select name="" id="progress" class="w-100">
-                            <option value="">Chọn Tiến độ</option>
-                            <option value="onSchedule">Đúng tiến độ</option>
-                            <option value="withRisk">Có rủi ro</option>
-                            <option value="Delayed">Trễ hẹn</option>
-                        </select>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-primary" id="add-btn">Lưu</button>
                 </div>
             </div>
         </div>

@@ -120,3 +120,11 @@ footer {
 .showStatus {
   display: none;
 }
+
+.error {
+  color: red;
+}
+
+.error-input {
+  border: 1px solid red;
+}

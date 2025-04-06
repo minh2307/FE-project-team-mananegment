@@ -1,14 +1,2 @@
-Trang quản lý dự án:
-dashboard
-
-Trang chi tiết dự án:
-product-manager
-
-Trang nhiệm vụ cá nhân:
-category-manager
-
-sửa input
-https://getbootstrap.com/docs/5.3/forms/floating-labels/#selects
-
-
-
+phần cfedit 
+mô tả cho dự án không hiển thị được
