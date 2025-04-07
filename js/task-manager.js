@@ -9,7 +9,6 @@ function logOut() {
   localStorage.removeItem("savedEmail");
 }
 
-// Kiểm tra đăng nhập khi tải trang
 document.addEventListener("DOMContentLoaded", function () {
   if (!loggedInEmail) {
     window.location.href = "/pages/logIn.html";
@@ -22,7 +21,7 @@ function renderProduct(projectId) {
   let nameProject = document.getElementById("nameProject");
   let findProject = projects.find((el) => el.id === projectId);
   if (!findProject) {
-    console.error(`Không tìm thấy dự án với ID: ${projectId}`);
+    console.error(`Không tìm thấy dự án với ID ${projectId}`);
     return;
   }
 
@@ -40,7 +39,7 @@ function renderProduct(projectId) {
     let user1 = users[findProject.members[0].userId - 1];
     let user2 = users[findProject.members[1].userId - 1];
     if (!user1 || !user2) {
-      console.error("Không tìm thấy user cho một hoặc cả hai members");
+      console.error("Không tìm thấy user cho một hoặc cả hai thành viên");
       return;
     }
 
@@ -65,15 +64,11 @@ function renderProduct(projectId) {
     userAvatar2.textContent = initials2;
     userAvatar1.href = `mailto:${user1.email}`;
     userAvatar2.href = `mailto:${user2.email}`;
-
-    console.log(initials1);
-    console.log(user2.email);
   }
 }
 
 function renderToDo() {
   let renderToDo = tasks.filter((el) => el.status.toLowerCase() === "to do");
-
   renderStatusTask(renderToDo, "toDo");
 }
 
@@ -81,7 +76,6 @@ function renderInProgress() {
   let renderInProgress = tasks.filter(
     (el) => el.status.toLowerCase() === "in progress"
   );
-
   renderStatusTask(renderInProgress, "inProgress");
 }
 
@@ -89,20 +83,15 @@ function renderPending() {
   let renderPending = tasks.filter(
     (el) => el.status.toLowerCase() === "pending"
   );
-
   renderStatusTask(renderPending, "pending");
 }
 
 function renderDone() {
   let renderDone = tasks.filter((el) => el.status.toLowerCase() === "done");
-
   renderStatusTask(renderDone, "done");
 }
 
 function renderStatusTask(listStatus, list) {
-  console.log("check");
-
-  // tìm tên người phụ trách
   let status = document.getElementById(`${list}`);
   status.classList.toggle("showStatus");
   status.innerHTML = "";
@@ -120,7 +109,7 @@ function renderStatusTask(listStatus, list) {
 
     let progress = task.progress.toLowerCase().trim();
     let btnProgress =
-      progress === "trễ"
+      progress === "trễ hẹn"
         ? "bg-danger"
         : progress === "có rủi ro"
         ? "bg-warning"
@@ -129,24 +118,164 @@ function renderStatusTask(listStatus, list) {
     status.innerHTML += `<tr>
                 <td>${task.taskName}</td>
                 <td class="text-center">${user.fullName}</td>
-                <td class="text-center"><span class="badge ${btnPriority}">${task.priority}</span></td>
-                <td class="text-center" style="color: #0D6EFD;">${task.asignDate}</td>
-                <td class="text-center" style="color: #0D6EFD;">${task.dueDate}</td>
-                <td class="text-center"><span class="badge ${btnProgress}">${task.progress}</span></td> 
+                <td class="text-center"><span class="badge ${btnPriority}">${
+      task.priority
+    }</span></td>
+                <td class="text-center" style="color: #0D6EFD;">${getMonthDay(
+                  task.asignDate
+                )}</td>
+                <td class="text-center" style="color: #0D6EFD;">${getMonthDay(
+                  task.dueDate
+                )}</td>
+                <td class="text-center"><span class="badge ${btnProgress}">${
+      task.progress
+    }</span></td> 
                 <td class="text-center">
-                    <button class="btn btn-warning sizeBtn me-3" data-bs-toggle="modal" data-bs-target="#addNewTask" onclick="editTask(${task.id})">Sửa</button>
-                    <button class="btn btn-danger sizeBtn" data-bs-toggle="modal" data-bs-target="#deleteTask">Xóa</button>
+                    <button class="btn btn-warning sizeBtn me-3" data-bs-toggle="modal" data-bs-target="#addNewTask" onclick="editTask(${
+                      task.id
+                    })">Sửa</button>
+                    <button class="btn btn-danger sizeBtn" data-bs-toggle="modal" data-bs-target="#deleteTask">Xoá</button>
                 </td>
             </tr>`;
   });
 }
 
+function getMonthDay(date) {
+  if (!date) return "";
+
+  const parts = date.split("-");
+  if (parts.length !== 3) return "";
+
+  const [year, month, day] = parts;
+
+  return `${month} - ${day}`;
+}
+
+let isFormValid = true;
+
+function validateTaskForm() {
+  let taskNameInput = document.getElementById("taskName");
+  let errorTask = document.getElementById("error-nameTask");
+  let newName = taskNameInput.value.trim();
+
+  let assigneeSelect = document.getElementById("assignee");
+  let errorAssignee = document.getElementById("error-assignee");
+  let assignee = assigneeSelect.value.trim();
+
+  let statusSelect = document.getElementById("status");
+  let errorStatus = document.getElementById("error-status");
+  let status = statusSelect.value.trim();
+
+  let asignDateInput = document.getElementById("asignDate");
+  let errorAsignDate = document.getElementById("error-asignDate");
+  let asignDate = asignDateInput.value.trim();
+
+  let dueDateInput = document.getElementById("dueDate");
+  let errorDueDate = document.getElementById("error-dueDate");
+  let dueDate = dueDateInput.value.trim();
+
+  let prioritySelect = document.getElementById("priority");
+  let errorPriority = document.getElementById("error-priority");
+  let priority = prioritySelect.value.trim();
+
+  let progressSelect = document.getElementById("progress");
+  let errorProgress = document.getElementById("error-progress");
+  let progress = progressSelect.value.trim();
+
+  let taskId = parseInt(
+    document.getElementById("add-btn").getAttribute("onclick").match(/\d+/)[0]
+  );
+  let task = tasks.find((el) => el.id === taskId);
+
+  const resetErrors = () => {
+    errorTask.textContent = "";
+    errorAssignee.textContent = "";
+    errorStatus.textContent = "";
+    errorAsignDate.textContent = "";
+    errorDueDate.textContent = "";
+    errorPriority.textContent = "";
+    errorProgress.textContent = "";
+
+    taskNameInput.classList.remove("error-input");
+    assigneeSelect.classList.remove("error-input");
+    statusSelect.classList.remove("error-input");
+    asignDateInput.classList.remove("error-input");
+    dueDateInput.classList.remove("error-input");
+    prioritySelect.classList.remove("error-input");
+    progressSelect.classList.remove("error-input");
+  };
+
+  resetErrors();
+
+  let hasError = false;
+
+  if (newName === "") {
+    errorTask.textContent = "Tên tác vụ không được để trống";
+    taskNameInput.classList.add("error-input");
+    hasError = true;
+  }
+  // else if (newName === task.taskName) {
+  //   errorTask.textContent = "Tên nhiệm vụ không thay đổi";
+  //   taskNameInput.classList.add("error-input");
+  //   hasError = true;
+  // }
+
+  if (assignee === "") {
+    errorAssignee.textContent = "Vui lòng chọn người được giao";
+    assigneeSelect.classList.add("error-input");
+    hasError = true;
+  }
+
+  if (status === "") {
+    errorStatus.textContent = "Vui lòng chọn trạng thái";
+    statusSelect.classList.add("error-input");
+    hasError = true;
+  }
+
+  if (asignDate === "") {
+    errorAsignDate.textContent = "Vui lòng chọn ngày bắt đầu";
+    asignDateInput.classList.add("error-input");
+    hasError = true;
+  }
+
+  if (dueDate === "") {
+    errorDueDate.textContent = "Vui lòng chọn ngày đến hạn";
+    dueDateInput.classList.add("error-input");
+    hasError = true;
+  }
+
+  if (asignDate && dueDate) {
+    let startDate = new Date(asignDate);
+    let endDate = new Date(dueDate);
+    if (startDate > endDate) {
+      errorDueDate.textContent = "Ngày đến hạn phải sau ngày bắt đầu";
+      dueDateInput.classList.add("error-input");
+      hasError = true;
+    }
+  }
+
+  if (priority === "") {
+    errorPriority.textContent = "Vui lòng chọn mức độ ưu tiên";
+    prioritySelect.classList.add("error-input");
+    hasError = true;
+  }
+
+  if (progress === "") {
+    errorProgress.textContent = "Vui lòng chọn trạng thái tiến độ";
+    progressSelect.classList.add("error-input");
+    hasError = true;
+  }
+
+  isFormValid = !hasError;
+}
+
 function editTask(taskId) {
   let addBtn = document.getElementById("add-btn");
   addBtn.removeAttribute("onclick");
-  addBtn.setAttribute("onclick", `cfeditTask(${taskId})`);
-  let add = document.getElementById("exampleModalLabel");
-  add.textContent = `Sửa nhiệm vụ`;
+  addBtn.setAttribute("onclick", `confirmEditTask(${taskId})`);
+
+  let modalTitle = document.getElementById("exampleModalLabel");
+  modalTitle.textContent = `Sửa nhiệm vụ`;
 
   let taskName = document.getElementById("taskName");
   let errorSpan = document.getElementById("error-nameTask");
@@ -154,47 +283,107 @@ function editTask(taskId) {
   errorSpan.textContent = "";
 
   let find = tasks.find((el) => el.id === taskId);
-  console.log(find);
+  let user = users.find((el) => el.id === find.assigneeId);
 
   if (find) {
     taskName.value = find.taskName;
+    document.getElementById("assignee").value = user.fullName;
+
+    let statusValue = find.status.toLowerCase();
+
+    if (statusValue === "to do") statusValue = "To do";
+    if (statusValue === "in progress") statusValue = "In Progress";
+    if (statusValue === "Pending") statusValue = "Pending";
+    if (statusValue === "Done") statusValue = "Done";
+
+    document.getElementById("status").value = statusValue;
+
+    const formatDateForInput = (dateString) => {
+      if (!dateString) return "";
+
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+
+      if (year < 1900 || year > 2100) return "";
+
+      return dateString;
+    };
+
+    document.getElementById("asignDate").value = formatDateForInput(
+      find.asignDate
+    );
+    document.getElementById("dueDate").value = formatDateForInput(find.dueDate);
+
+    document.getElementById("priority").value = find.priority.toLowerCase();
+    document.getElementById("progress").value = find.progress.toLowerCase();
+
+    renderAssigneeId(find.assigneeId);
   } else {
-    console.error(`Không tìm thấy dự án với ID: ${taskId}`);
+    console.error(`Không tìm thấy nhiệm vụ với ID ${taskId}`);
   }
 }
 
-function cfeditTask(taskId) {
+function confirmEditTask(taskId) {
   let modal = bootstrap.Modal.getInstance(
     document.getElementById("addNewTask")
   );
-
-  let errorTask = document.getElementById("error-nameTask");
-  let taskNameInput = document.getElementById("taskName");
-  let newName = taskNameInput.value.trim();
-  let assignee = document.getElementById("assignee");
-
   let task = tasks.find((el) => el.id === taskId);
-  let user = users.find((el) => el.id === task.assigneeId);
+  let userAssignee = users.filter((el) => el.id === task.assigneeId);
+  console.log(userAssignee);
 
-  if (newName === "") {
-    errorTask.textContent = "Tên nhiệm vụ không được để trống";
-    taskNameInput.classList.add("error-input");
+  renderAssigneeId(task.assigneeId);
+
+  validateTaskForm();
+
+  if (!isFormValid) {
     return;
   }
 
-  if (newName === task.taskName) {
-    errorTask.textContent = "Tên nhiệm vụ chưa thay đổi";
-    taskNameInput.classList.add("error-input");
-    return;
-  }
+  let taskName = document.getElementById("taskName").value.trim();
+  let assignee = document.getElementById("assignee").value.trim();
+  let status = document.getElementById("status").value.trim();
+  let asignDate = document.getElementById("asignDate").value.trim();
+  let dueDate = document.getElementById("dueDate").value.trim();
+  let priority = document.getElementById("priority").value.trim();
+  let progress = document.getElementById("progress").value.trim();
 
-  task.taskName = newName;
-  // task.assignee = ;
+  task.taskName = taskName;
+  task.assigneeId = parseInt(assignee);
+  task.status = status;
+  task.asignDate = asignDate;
+  task.dueDate = dueDate;
+  task.priority = priority;
+  task.progress = progress;
+
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  errorTask.textContent = "";
-  taskNameInput.classList.remove("error-input");
-  taskNameInput.value = "";
+  document.getElementById("taskName").value = "";
+  document.getElementById("assignee").value = "";
+  document.getElementById("status").value = "";
+  document.getElementById("asignDate").value = "";
+  document.getElementById("dueDate").value = "";
+  document.getElementById("priority").value = "";
+  document.getElementById("progress").value = "";
 
   modal.hide();
+
+  renderToDo();
+  renderInProgress();
+  renderPending();
+  renderDone();
+}
+
+function renderAssigneeId(selectedId = null) {
+  let assigneeSelect = document.getElementById("assignee");
+  assigneeSelect.innerHTML = "";
+
+  users.forEach((user) => {
+    let option = document.createElement("option");
+    option.value = user.id;
+    option.textContent = user.fullName;
+    if (selectedId && user.id === selectedId) {
+      option.selected = true;
+    }
+    assigneeSelect.appendChild(option);
+  });
 }

@@ -180,49 +180,55 @@
                         <div>
                             <label for="assignee">Người phụ trách</label>
                             <select name="" id="assignee" class="w-100">
-                                <option value="">Chọn người phụ trách</option>
+
                             </select>
+                            <span id="error-assignee" class="text-danger"></span>
                         </div>
 
                         <div>
                             <label for="status">Trạng thái</label>
                             <select name="" id="status" class="w-100">
                                 <option value="">Chọn trạng thái nhiệm vụ</option>
-                                <option value="toDo">Việc cần làm</option>
-                                <option value="inProgress">Đang thực hiện</option>
-                                <option value="pending">Đang chờ</option>
-                                <option value="done">Đã hoàn thành</option>
+                                <option value="To do">To do</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Done">Done</option>
                             </select>
+                            <span id="error-status" class="text-danger"></span>
                         </div>
 
                         <div>
                             <label for="asignDate">Ngày bắt đầu</label>
                             <input type="date" id="asignDate" class="w-100">
+                            <span id="error-asignDate" class="text-danger"></span>
                         </div>
 
                         <div>
                             <label for="dueDate">Hạn cuỗi</label>
                             <input type="date" id="dueDate" class="w-100">
+                            <span id="error-dueDate" class="text-danger"></span>
                         </div>
 
                         <div>
                             <label for="priority">độ ưu tiên</label>
                             <select name="" id="priority" class="w-100">
                                 <option value="">Chọn độ ưu tiên</option>
-                                <option value="high">Cao</option>
-                                <option value="low">Thấp</option>
-                                <option value="average">Trung bình</option>
+                                <option value="cao">Cao</option>
+                                <option value="thấp">Thấp</option>
+                                <option value="trung bình">Trung bình</option>
                             </select>
+                            <span id="error-priority" class="text-danger"></span>
                         </div>
 
                         <div>
                             <label for="progress">Tiến độ</label>
                             <select name="" id="progress" class="w-100">
                                 <option value="">Chọn Tiến độ</option>
-                                <option value="onSchedule">Đúng tiến độ</option>
-                                <option value="withRisk">Có rủi ro</option>
-                                <option value="Delayed">Trễ hẹn</option>
+                                <option value="đúng tiến độ">Đúng tiến độ</option>
+                                <option value="có rủi ro">Có rủi ro</option>
+                                <option value="trễ hẹn">Trễ hẹn</option>
                             </select>
+                            <span id="error-progress" class="text-danger"></span>
                         </div>
                     </div>
 
