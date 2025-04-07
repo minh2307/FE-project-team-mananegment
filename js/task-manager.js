@@ -67,30 +67,33 @@ function renderProduct(projectId) {
   }
 }
 
-// let filterTasks = tasks.filter((el) => el.projectId === projectId);
-// console.log();
+let filterTasks = tasks.filter((el) => el.projectId === projectId);
 
 function renderToDo() {
-  let renderToDo = tasks.filter((el) => el.status.toLowerCase() === "to do");
+  let renderToDo = filterTasks.filter(
+    (el) => el.status.toLowerCase() === "to do"
+  );
   renderStatusTask(renderToDo, "toDo");
 }
 
 function renderInProgress() {
-  let renderInProgress = tasks.filter(
+  let renderInProgress = filterTasks.filter(
     (el) => el.status.toLowerCase() === "in progress"
   );
   renderStatusTask(renderInProgress, "inProgress");
 }
 
 function renderPending() {
-  let renderPending = tasks.filter(
+  let renderPending = filterTasks.filter(
     (el) => el.status.toLowerCase() === "pending"
   );
   renderStatusTask(renderPending, "pending");
 }
 
 function renderDone() {
-  let renderDone = tasks.filter((el) => el.status.toLowerCase() === "done");
+  let renderDone = filterTasks.filter(
+    (el) => el.status.toLowerCase() === "done"
+  );
   renderStatusTask(renderDone, "done");
 }
 
