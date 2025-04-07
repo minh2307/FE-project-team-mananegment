@@ -28,7 +28,7 @@ tasks = [
     projectId: 1,
     asignDate: "2002-03-24",
     dueDate: "2002-03-26",
-    priority: "Thấp",
+    priority: "Cao",
     progress: "Đúng tiến độ",
     status: "In Progress",
   },

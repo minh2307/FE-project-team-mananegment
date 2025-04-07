@@ -66,13 +66,13 @@
                 </div>
 
                 <div class="d-flex justify-content-between" style="width: 1200px;">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewTask">+ Thêm nhiệm
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewTask"
+                        onclick="addNewTask()">+ Thêm nhiệm
                         vụ</button>
                     <span>
                         <select name="" id="" class="selectSort text-center">
                             <option value="">Sắp xếp theo</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
+
                         </select>
                         <input type="text" name="" id="" class="searchTask ps-3" placeholder="Tìm kiếm nhiệm vụ">
                     </span>
@@ -180,9 +180,8 @@
                         <div>
                             <label for="assignee">Người phụ trách</label>
                             <select name="" id="assignee" class="w-100">
-
                             </select>
-                            <span id="error-assignee" class="text-danger"></span>
+                            <span class="error" id="error-assignee"></span>
                         </div>
 
                         <div>
@@ -194,7 +193,7 @@
                                 <option value="Pending">Pending</option>
                                 <option value="Done">Done</option>
                             </select>
-                            <span id="error-status" class="text-danger"></span>
+                            <span class="error" id="error-status"></span>
                         </div>
 
                         <div>
@@ -204,7 +203,7 @@
                         </div>
 
                         <div>
-                            <label for="dueDate">Hạn cuỗi</label>
+                            <label for="dueDate">Hạn cuối</label>
                             <input type="date" id="dueDate" class="w-100">
                             <span id="error-dueDate" class="text-danger"></span>
                         </div>
@@ -217,18 +216,18 @@
                                 <option value="thấp">Thấp</option>
                                 <option value="trung bình">Trung bình</option>
                             </select>
-                            <span id="error-priority" class="text-danger"></span>
+                            <span class="error" id="error-priority"></span>
                         </div>
 
                         <div>
                             <label for="progress">Tiến độ</label>
                             <select name="" id="progress" class="w-100">
-                                <option value="">Chọn Tiến độ</option>
+                                <option value="">Chọn tiến độ</option>
                                 <option value="đúng tiến độ">Đúng tiến độ</option>
                                 <option value="có rủi ro">Có rủi ro</option>
                                 <option value="trễ hẹn">Trễ hẹn</option>
+                                <span class="error" id="error-progress"></span>
                             </select>
-                            <span id="error-progress" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -259,7 +258,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-danger">Xoá</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteTask">Xoá</button>
                 </div>
             </div>
         </div>
