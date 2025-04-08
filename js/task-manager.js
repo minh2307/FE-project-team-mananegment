@@ -1,7 +1,10 @@
 let projects = JSON.parse(localStorage.getItem("projects")) || [];
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-let projectId = JSON.parse(localStorage.getItem("projectId")) || [];
+// let projectId = JSON.parse(localStorage.getItem("projectId")) || [];
+
+const params = new URLSearchParams(window.location.search);
+let projectId = params.get("id");
 
 let loggedInEmail = localStorage.getItem("savedEmail");
 
@@ -19,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function renderProduct(projectId) {
   let nameProject = document.getElementById("nameProject");
-  let findProject = projects.find((el) => el.id === projectId);
+  let findProject = projects.find((el) => el.id == projectId);
   if (!findProject) {
     console.error(`Không tìm thấy dự án với ID ${projectId}`);
     return;
@@ -67,7 +70,7 @@ function renderProduct(projectId) {
   }
 }
 
-let filterTasks = tasks.filter((el) => el.projectId === projectId);
+let filterTasks = tasks.filter((el) => el.projectId == projectId);
 
 function renderToDo() {
   let renderToDo = filterTasks.filter(
@@ -161,10 +164,32 @@ function getMonthDay(date) {
 
 let isFormValid = true;
 
+let resetErrors = () => {
+  console.log(1234);
+
+  errorTask.textContent = "";
+  errorAssignee.textContent = "";
+  errorStatus.textContent = "";
+  errorAsignDate.textContent = "";
+  errorDueDate.textContent = "";
+  errorPriority.textContent = "";
+  errorProgress.textContent = "";
+
+  taskNameInput.classList.remove("error-input");
+  assigneeSelect.classList.remove("error-input");
+  statusSelect.classList.remove("error-input");
+  asignDateInput.classList.remove("error-input");
+  dueDateInput.classList.remove("error-input");
+  prioritySelect.classList.remove("error-input");
+  progressSelect.classList.remove("error-input");
+};
+
 function validateTaskForm() {
+  console.log("validate");
+
   let taskNameInput = document.getElementById("taskName");
   let errorTask = document.getElementById("error-nameTask");
-  let newName = taskNameInput.value.trim(); // Sửa ở đây: lấy .value
+  let newName = taskNameInput.value.trim();
 
   let assigneeSelect = document.getElementById("assignee");
   let errorAssignee = document.getElementById("error-assignee");
@@ -190,29 +215,26 @@ function validateTaskForm() {
   let errorProgress = document.getElementById("error-progress");
   let progress = progressSelect.value;
 
-  const resetErrors = () => {
-    errorTask.textContent = "";
-    // errorAssignee.textContent = "";
-    // errorStatus.textContent = "";
-    errorAsignDate.textContent = "";
-    errorDueDate.textContent = "";
-    // errorPriority.textContent = "";
-    // errorProgress.textContent = "";
+  console.log(1234);
 
-    taskNameInput.classList.remove("error-input");
-    assigneeSelect.classList.remove("error-input");
-    statusSelect.classList.remove("error-input");
-    asignDateInput.classList.remove("error-input");
-    dueDateInput.classList.remove("error-input");
-    prioritySelect.classList.remove("error-input");
-    progressSelect.classList.remove("error-input");
-  };
+  errorTask.textContent = "";
+  errorAssignee.textContent = "";
+  errorStatus.textContent = "";
+  errorAsignDate.textContent = "";
+  errorDueDate.textContent = "";
+  errorPriority.textContent = "";
+  errorProgress.textContent = "";
 
-  resetErrors();
+  taskNameInput.classList.remove("error-input");
+  assigneeSelect.classList.remove("error-input");
+  statusSelect.classList.remove("error-input");
+  asignDateInput.classList.remove("error-input");
+  dueDateInput.classList.remove("error-input");
+  prioritySelect.classList.remove("error-input");
+  progressSelect.classList.remove("error-input");
 
   let hasError = false;
-
-  console.log(newName + "sd");
+  let task = tasks.find((el) => el.id == projectId);
 
   if (newName === "") {
     errorTask.textContent = "Tên tác vụ không được để trống";
@@ -319,6 +341,7 @@ function editTask(taskId) {
     document.getElementById("progress").value = find.progress.toLowerCase();
 
     renderAssigneeId(find.assigneeId);
+    validateTaskForm();
   } else {
     console.error(`Không tìm thấy nhiệm vụ với ID ${taskId}`);
   }
@@ -372,9 +395,7 @@ function confirmEditTask(taskId) {
 }
 
 function renderAssigneeId(taskId) {
-  console.log(taskId);
-
-  let project = projects.find((el) => el.id === projectId);
+  let project = projects.find((el) => el.id == projectId);
   if (!project) return;
 
   let userAssignees = project.members.map((member) => member.userId);
@@ -388,7 +409,7 @@ function renderAssigneeId(taskId) {
       assigneeSelect.innerHTML += `<option value="${user.id}">${user.fullName}</option>`;
     }
   });
-  let find = tasks.find((el) => el.id === taskId);
+  let find = tasks.find((el) => el.id == taskId);
   let user = users.find((el) => el.id === find.assigneeId);
   document.getElementById("assignee").value = user.id;
 }
@@ -399,7 +420,7 @@ function addNewTask() {
 
   let addBtn = document.getElementById("add-btn");
   addBtn.removeAttribute("onclick");
-  addBtn.setAttribute("onclick", `confirmAddTask(${projectId})`);
+  addBtn.setAttribute("onclick", `confirmAddTask()`);
 
   renderAssigneeId(projectId);
 
@@ -412,30 +433,31 @@ function addNewTask() {
   document.getElementById("progress").value = "";
 }
 
-function confirmAddTask(taskId) {
+function confirmAddTask() {
+  validateTaskForm();
+
   let modal = bootstrap.Modal.getInstance(
     document.getElementById("addNewTask")
   );
-  validateTaskForm();
-
-  if (!isFormValid) {
-    return; // Không đóng modal nếu có lỗi
-  }
 
   let taskNameInput = document.getElementById("taskName");
   let errorTask = document.getElementById("error-nameTask");
   let newName = taskNameInput.value.trim();
 
-  let findTask = tasks.find((el) => el.taskName === newName); // Sửa el.fullName thành el.taskName
+  let task = tasks.find((el) => el.taskName === newName);
+  console.log(123);
 
-  if (findTask) {
-    // Nếu tìm thấy nhiệm vụ trùng tên
-    errorTask.textContent = `Không được trùng tên nhiệm vụ`;
+  if (task.taskName === newName && newName) {
+    errorTask.textContent = "Tên tác vụ không được trùng nhau";
     taskNameInput.classList.add("error-input");
-    return; // Không đóng modal
+    return;
   }
 
-  // Thêm nhiệm vụ mới
+  if (!isFormValid) {
+    console.log("lỗi validate");
+    return;
+  }
+
   let newTask = {
     id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
     taskName: newName,
@@ -466,8 +488,6 @@ function deleteTask(taskId) {
   let confirmDeleteTask = document.getElementById("deleteTask");
 
   confirmDeleteTask.setAttribute("onclick", `confirmDeleteTask(${taskId})`);
-
-  console.log(confirmDeleteTask);
 }
 
 function confirmDeleteTask(taskId) {
@@ -481,4 +501,8 @@ function confirmDeleteTask(taskId) {
   renderInProgress();
   renderPending();
   renderDone();
+}
+
+function dashboard() {
+  window.location.href = "/pages/dashboard.html";
 }
