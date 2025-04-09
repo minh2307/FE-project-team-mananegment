@@ -140,7 +140,7 @@ function renderStatusTask(listStatus, list) {
       task.progress
     }</span></td> 
                 <td class="text-center">
-                    <button class="btn btn-warning sizeBtn me-3" data-bs-toggle="modal" data-bs-target="#addNewTask" onclick="editTask(${
+                    <button class="btn btn-warning sizeBtn me-3" data-bs-toggle="modal" data-bs-target="#addNewTaskModal" onclick="editTask(${
                       task.id
                     })">Sửa</button>
                     <button class="btn btn-danger sizeBtn" data-bs-toggle="modal" data-bs-target="#deleteTask" onclick="deleteTask(${
@@ -163,26 +163,6 @@ function getMonthDay(date) {
 }
 
 let isFormValid = true;
-
-let resetErrors = () => {
-  console.log(1234);
-
-  errorTask.textContent = "";
-  errorAssignee.textContent = "";
-  errorStatus.textContent = "";
-  errorAsignDate.textContent = "";
-  errorDueDate.textContent = "";
-  errorPriority.textContent = "";
-  errorProgress.textContent = "";
-
-  taskNameInput.classList.remove("error-input");
-  assigneeSelect.classList.remove("error-input");
-  statusSelect.classList.remove("error-input");
-  asignDateInput.classList.remove("error-input");
-  dueDateInput.classList.remove("error-input");
-  prioritySelect.classList.remove("error-input");
-  progressSelect.classList.remove("error-input");
-};
 
 function validateTaskForm() {
   console.log("validate");
@@ -215,8 +195,6 @@ function validateTaskForm() {
   let errorProgress = document.getElementById("error-progress");
   let progress = progressSelect.value;
 
-  console.log(1234);
-
   errorTask.textContent = "";
   errorAssignee.textContent = "";
   errorStatus.textContent = "";
@@ -237,7 +215,7 @@ function validateTaskForm() {
   let task = tasks.find((el) => el.id == projectId);
 
   if (newName === "") {
-    errorTask.textContent = "Tên tác vụ không được để trống";
+    errorTask.textContent = "Tên nhiệm vụ không được để trống";
     taskNameInput.classList.add("error-input");
     hasError = true;
   }
@@ -349,11 +327,19 @@ function editTask(taskId) {
 
 function confirmEditTask(taskId) {
   let modal = bootstrap.Modal.getInstance(
-    document.getElementById("addNewTask")
+    document.getElementById("addNewTaskModal")
   );
   let task = tasks.find((el) => el.id === taskId);
 
   validateTaskForm();
+
+  let newName = document.getElementById("taskName").value.trim();
+  if (newName.length < 8) {
+    document.getElementById("error-nameTask").textContent =
+      "Tên nhiệm vụ không được ít hơn 8 ký tự";
+    document.getElementById("taskName").classList.add("error-input");
+    return;
+  }
 
   if (!isFormValid) {
     return;
@@ -415,6 +401,8 @@ function renderAssigneeId(taskId) {
 }
 
 function addNewTask() {
+  console.log(1);
+
   let modalTitle = document.getElementById("exampleModalLabel");
   modalTitle.textContent = "Thêm nhiệm vụ";
 
@@ -437,7 +425,7 @@ function confirmAddTask() {
   validateTaskForm();
 
   let modal = bootstrap.Modal.getInstance(
-    document.getElementById("addNewTask")
+    document.getElementById("addNewTaskModal")
   );
 
   let taskNameInput = document.getElementById("taskName");
@@ -445,10 +433,15 @@ function confirmAddTask() {
   let newName = taskNameInput.value.trim();
 
   let task = tasks.find((el) => el.taskName === newName);
-  console.log(123);
+
+  if (newName.length < 8) {
+    errorTask.textContent = "Tên nhiệm vụ không được ít hơn 8 ký tự";
+    taskNameInput.classList.add("error-input");
+    return;
+  }
 
   if (task.taskName === newName && newName) {
-    errorTask.textContent = "Tên tác vụ không được trùng nhau";
+    errorTask.textContent = "Tên nhiệm vụ không được trùng nhau";
     taskNameInput.classList.add("error-input");
     return;
   }
@@ -505,4 +498,78 @@ function confirmDeleteTask(taskId) {
 
 function dashboard() {
   window.location.href = "/pages/dashboard.html";
+}
+
+function addNewUser() {
+  let modal = bootstrap.Modal.getInstance(document.getElementById("addUser"));
+
+  let emailInput = document.getElementById("email-user");
+  let emailUser = emailInput.value.trim();
+  let errorEmail = document.getElementById("error-emailUser");
+
+  let roleInput = document.getElementById("role");
+  let roleUser = roleInput.value.trim();
+  let errorRole = document.getElementById("error-role");
+
+  let isValid = true;
+
+  errorEmail.textContent = "";
+  emailInput.classList.remove("error-input");
+  errorRole.textContent = "";
+  roleInput.classList.remove("error-input");
+
+  let emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com)$/;
+
+  if (emailUser === "") {
+    errorEmail.textContent = "Email người dùng không được để trống";
+    emailInput.classList.add("error-input");
+    isValid = false;
+  } else if (emailUser.length < 8) {
+    errorEmail.textContent = "Email người dùng không được ít hơn 8 ký tự";
+    emailInput.classList.add("error-input");
+    isValid = false;
+  } else if (!emailRegex.test(emailUser)) {
+    errorEmail.textContent =
+      "Email phải có đuôi @gmail.com, @yahoo.com hoặc @outlook.com.";
+    emailInput.classList.add("error-input");
+    isValid = false;
+  }
+
+  let user = users.find((el) => el.email === emailUser);
+  if (user) {
+    let project = projects.find((el) => el.id == projectId);
+    let member = project.members.some((el) => el.userId === user.id);
+
+    if (member) {
+      errorEmail.textContent = "Người dùng này đã là thành viên của dự án.";
+      emailInput.classList.add("error-input");
+      isValid = false;
+    }
+  } else {
+    errorEmail.textContent = "Email này không tồn tại trong hệ thống.";
+    emailInput.classList.add("error-input");
+    isValid = false;
+  }
+
+  if (roleUser === "") {
+    errorRole.textContent = "Vai trò người dùng không được để trống";
+    roleInput.classList.add("error-input");
+    isValid = false;
+  } else if (roleUser.length < 8) {
+    errorRole.textContent = "Vai trò người dùng không được ít hơn 8 ký tự";
+    roleInput.classList.add("error-input");
+    isValid = false;
+  }
+
+  if (isValid) {
+    let project = projects.find((el) => el.id == projectId);
+    project.members.push({ userId: user.id, role: roleUser });
+
+    localStorage.setItem("projects", JSON.stringify(projects));
+
+    emailInput.value = "";
+    roleInput.value = "";
+
+    modal.hide();
+  }
 }

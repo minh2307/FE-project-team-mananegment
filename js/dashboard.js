@@ -284,15 +284,13 @@ function cfeditProject(projectId) {
     errorDescription.textContent = `Mô tả dự án không được để trống`;
     descriptionInput.classList.add("error-input");
     isValid = false;
-  } else if (newDescription === project.description) {
-    errorDescription.textContent = `Mô tả dự án chưa thay đổi`;
-    descriptionInput.classList.add("error-input");
-    isValid = false;
-  } else if (check) {
-    errorDescription.textContent = `Mô tả dự án không được trùng nhau`;
-    descriptionInput.classList.add("error-input");
-    isValid = false;
-  } else if (newDescription.length < 10) {
+  }
+  // else if (check) {
+  //   errorDescription.textContent = `Mô tả dự án không được trùng nhau`;
+  //   descriptionInput.classList.add("error-input");
+  //   isValid = false;
+  // }
+  else if (newDescription.length < 10) {
     errorDescription.textContent = `Mô tả dự án không được dưới 10 ký tự`;
     descriptionInput.classList.add("error-input");
     isValid = false;

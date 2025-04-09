@@ -66,13 +66,13 @@ users = [
   {
     id: 2,
     fullName: "An Nguyễn",
-    email: "nguyenquanan@gamil.com",
+    email: "nguyenquanan@gmail.com",
     password: "123456789",
   },
   {
     id: 3,
     fullName: "Bách Nguyễn",
-    email: "nguyenquanan@gamil.com",
+    email: "bachnguyen@gmail.com",
     password: "123456789",
   },
   {
@@ -84,13 +84,13 @@ users = [
   {
     id: 5,
     fullName: "An Nguyễn",
-    email: "nguyenquanan@gamil.com",
+    email: "nguyenquanan@gmail.com",
     password: "123456789",
   },
   {
     id: 6,
     fullName: "Bách Nguyễn",
-    email: "nguyenquanan@gamil.com",
+    email: "bachnguyen@gmail.com",
     password: "123456789",
   },
 ];
