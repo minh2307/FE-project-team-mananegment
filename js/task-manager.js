@@ -72,6 +72,13 @@ function renderProduct(projectId) {
 
 let filterTasks = tasks.filter((el) => el.projectId == projectId);
 
+let sectionStatus = {
+  toDo: false,
+  inProgress: false,
+  pending: false,
+  done: false,
+};
+
 function renderToDo() {
   let renderToDo = filterTasks.filter(
     (el) => el.status.toLowerCase() === "to do"
@@ -102,8 +109,24 @@ function renderDone() {
 
 function renderStatusTask(listStatus, list) {
   let status = document.getElementById(`${list}`);
-  status.classList.toggle("showStatus");
+  let img = document.getElementById(`${list}-img`);
+
   status.innerHTML = "";
+  console.log("todo => ", sectionStatus[list]);
+
+  if (sectionStatus[list]) {
+    status.classList.add("closeStatus");
+    img.src = "/assets/img/Triangle1.png";
+    console.log("remove");
+    sectionStatus[list] = false;
+    console.log(sectionStatus);
+  } else {
+    console.log("show");
+    status.classList.remove("closeStatus");
+    img.src = "/assets/img/Triangle2x.png";
+    sectionStatus[list] = true;
+    console.log(sectionStatus);
+  }
 
   listStatus.forEach((task) => {
     let user = users.find((u) => u.id === task.assigneeId);
@@ -294,8 +317,8 @@ function editTask(taskId) {
 
     if (statusValue === "to do") statusValue = "To do";
     if (statusValue === "in progress") statusValue = "In Progress";
-    if (statusValue === "Pending") statusValue = "Pending";
-    if (statusValue === "Done") statusValue = "Done";
+    if (statusValue === "pending") statusValue = "Pending";
+    if (statusValue === "done") statusValue = "Done";
 
     document.getElementById("status").value = statusValue;
 
@@ -374,9 +397,13 @@ function confirmEditTask(taskId) {
 
   modal.hide();
 
+  sectionStatus["toDo"] = !sectionStatus["toDo"];
   renderToDo();
+  sectionStatus["inProgress"] = !sectionStatus["inProgress"];
   renderInProgress();
+  sectionStatus["pending"] = !sectionStatus["pending"];
   renderPending();
+  sectionStatus["done"] = !sectionStatus["done"];
   renderDone();
 }
 
@@ -432,7 +459,11 @@ function confirmAddTask() {
   let errorTask = document.getElementById("error-nameTask");
   let newName = taskNameInput.value.trim();
 
+  console.log(newName);
+
   let task = tasks.find((el) => el.taskName === newName);
+
+  console.log(task);
 
   if (newName.length < 8) {
     errorTask.textContent = "Tên nhiệm vụ không được ít hơn 8 ký tự";
@@ -440,7 +471,7 @@ function confirmAddTask() {
     return;
   }
 
-  if (task.taskName === newName && newName) {
+  if (task?.taskName === newName && newName) {
     errorTask.textContent = "Tên nhiệm vụ không được trùng nhau";
     taskNameInput.classList.add("error-input");
     return;
@@ -471,10 +502,7 @@ function confirmAddTask() {
 
   modal.hide();
 
-  renderToDo();
-  renderInProgress();
-  renderPending();
-  renderDone();
+  renderByStatus(document.getElementById("status").value);
 }
 
 function deleteTask(taskId) {
@@ -486,14 +514,35 @@ function deleteTask(taskId) {
 function confirmDeleteTask(taskId) {
   let deleteIndex = tasks.findIndex((el) => el.id === taskId);
 
+  let status = tasks[deleteIndex].status;
+
   tasks.splice(deleteIndex, 1);
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  renderToDo();
-  renderInProgress();
-  renderPending();
-  renderDone();
+  renderByStatus(status);
+}
+
+function renderByStatus(status) {
+  filterTasks = tasks.filter((el) => el.projectId == projectId);
+  switch (status) {
+    case "To do":
+      sectionStatus["toDo"] = !sectionStatus["toDo"];
+      renderToDo();
+      break;
+    case "In inProgress":
+      sectionStatus["inProgress"] = !sectionStatus["inProgress"];
+      renderInProgress();
+      break;
+    case "Pending":
+      sectionStatus["pending"] = !sectionStatus["pending"];
+      renderPending();
+      break;
+    case "Done":
+      sectionStatus["done"] = !sectionStatus["done"];
+      renderDone();
+      break;
+  }
 }
 
 function dashboard() {

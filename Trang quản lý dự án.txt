@@ -1,2 +1,0 @@
-email đăng nhập lưu bằng id
-query param js

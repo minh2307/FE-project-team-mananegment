@@ -17,7 +17,7 @@
         <span class="d-flex" style="padding-left: 200px;">
             <a class="nav-link active" aria-current="page" href="#" style="color:  white !important;"
                 onclick="dashboard()">Dự án</a>
-            <a class="nav-link" href="#">Nhiệm vụ của tôi</a>
+            <a class="nav-link" href="#" style="opacity: 0.5;">Nhiệm vụ của tôi</a>
             <a class="nav-link" href="/pages/logIn.html" onclick="logOut()">Đăng xuất</a>
         </span>
     </nav>
@@ -104,41 +104,42 @@
                     <tr>
                         <td colspan="7">
                             <span type="button" style="font-weight: 700;" onclick="renderToDo()">
-                                <img src="/assets/img/Triangle@2x.png" alt="" style="width: 15px; height: 15px;"> To
+                                <img src="/assets/img/Triangle1.png" alt="" style="width: 15px; height: 15px;"
+                                    id="toDo-img"> To
                                 do
                             </span>
                         </td>
                     </tr>
-                    <tbody id="toDo" class="showStatus">
+                    <tbody id="toDo">
 
                     </tbody>
 
                     <tr>
                         <td colspan="7">
                             <span type="button" style="font-weight: 700;" onclick="renderInProgress()">
-                                <img src="/assets/img/Triangle@2x.png" alt="" style="width: 15px; height: 15px;"> In
+                                <img src="/assets/img/Triangle1.png" alt="" style="width: 15px; height: 15px;"
+                                    id="inProgress-img"> In
                                 Progress
                             </span>
                         </td>
                     </tr>
 
-                    <tbody id="inProgress" class="showStatus">
+                    <tbody id="inProgress">
 
                     </tbody>
-
-
 
 
                     <tr>
                         <td colspan="7">
                             <span type="button" style="font-weight: 700;" onclick="renderPending()">
-                                <img src="/assets/img/Triangle-1.png" alt="" style="width: 15px; height: 15px;">
+                                <img src="/assets/img/Triangle1.png" alt="" style="width: 15px; height: 15px;"
+                                    id="pending-img">
                                 Pending
                             </span>
                         </td>
                     </tr>
 
-                    <tbody id="pending" class="showStatus">
+                    <tbody id="pending">
 
                     </tbody>
 
@@ -147,12 +148,13 @@
                     <tr>
                         <td colspan="7">
                             <span type="button" style="font-weight: 700;" onclick="renderDone()">
-                                <img src="/assets/img/Triangle-1.png" alt="" style="width: 15px; height: 15px;">
+                                <img src="/assets/img/Triangle1.png" alt="" style="width: 15px; height: 15px; "
+                                    id="done-img">
                                 Done
                             </span>
                         </td>
                     </tr>
-                    <tbody id="done" class="showStatus">
+                    <tbody id="done">
                     </tbody>
 
                     </tbody>
