@@ -32,10 +32,13 @@
                     <h2 id="nameProject">Xây dựng website thương mại điện tử</h2>
                     <span class="d-flex flex-wrap">
                         <h2>Thành viên</h2>
-                        <button class="btn btn-outline-secondary ms-5" data-bs-toggle="modal"
-                            data-bs-target="#addUser">+ Thêm thành viên</button>
+                        <button type="button" class="btn btn-outline-secondary ms-5" data-bs-toggle="modal"
+                            data-bs-target="#addUser">
+                            + Thêm thành viên
+                        </button>
                     </span>
                 </div>
+
 
                 <div class="d-flex mb-4" style="width: 1200px;">
 
@@ -215,8 +218,8 @@
                             <select name="" id="priority" class="w-100 form-control">
                                 <option value="">Chọn độ ưu tiên</option>
                                 <option value="cao">Cao</option>
-                                <option value="thấp">Thấp</option>
                                 <option value="trung bình">Trung bình</option>
+                                <option value="thấp">Thấp</option>
                             </select>
                             <span class="error" id="error-priority"></span>
                         </div>
@@ -255,7 +258,7 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Xác nhận xoá</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="deleteText">
                     Bạn chắc chắn muốn xoá dự án này?
                 </div>
                 <div class="modal-footer">
@@ -290,41 +293,44 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- thêm thành viên -->
-        <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm thành viên</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- thêm thành viên -->
+    <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm thành viên</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column gap-4">
+                    <div>
+                        <label for="email-user" class="mb-2">Email</label>
+                        <input type="text" id="email-user" class="w-100 form-control" style="height: 44px;">
+                        <span class="error" id="error-emailUser"></span>
                     </div>
-                    <div class="modal-body d-flex flex-column gap-4">
-                        <div>
-                            <label for="email-user" class="mb-2">Email</label>
-                            <input type="text" id="email-user" class="w-100 form-control" style="height: 44px;">
-                            <span class="error" id="error-emailUser"></span>
-                        </div>
-                        <div>
-                            <label for="role" class="mb-2">Vai trò</label>
-                            <input type="text" name="" id="role" class="w-100 form-control" style="height: 44px;">
-                            <span class="error" id="error-role"></span>
-                        </div>
+                    <div>
+                        <label for="role" class="mb-2">Vai trò</label>
+                        <input type="text" id="role" class="w-100 form-control" style="height: 44px;">
+                        <span class="error" id="error-role"></span>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="button" class="btn btn-primary" id="addUser" onclick="addNewUser()">Lưu</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary" id="saveUser" onclick="addNewUser()">Lưu</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="/js/data.js"></script>
-        <script src="/js/task-manager.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="/js/data.js"></script>
+    <script src="/js/task-manager.js"></script>
+
 </body>
 
 </html>

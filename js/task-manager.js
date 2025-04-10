@@ -607,7 +607,7 @@ function membersProject() {
         </div>
         <div class="w-50 d-flex align-items-center ms-5">
           <input id="${member.userId}" type="text" class="form-control form-control-sm w-75 me-2" value="${member.role}">
-          <img src="/assets/img/Trash.png" alt="delete" style="width: 20px; height: 20px;">
+          <img src="/assets/img/Trash.png" alt="delete" style="width: 20px; height: 20px;" onclick = "deleteUser(${user.id})">
         </div>
       </div>`;
   });
@@ -626,4 +626,14 @@ function editRole() {
   localStorage.setItem("projects", JSON.stringify(projects));
 }
 
-document.getElementById("editRole").addEventListener("click", editRole);
+function deleteUser(userId) {
+  let project = projects.find((el) => el.id == projectId);
+
+  let deleteIndex = project.members.findIndex((el) => el.id === userId);
+
+  project.members.splice(deleteIndex, 1);
+
+  localStorage.setItem("projects", JSON.stringify(projects));
+
+  membersProject();
+}
