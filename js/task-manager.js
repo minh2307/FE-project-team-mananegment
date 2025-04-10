@@ -3,7 +3,7 @@ let users = JSON.parse(localStorage.getItem("users")) || [];
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 // let projectId = JSON.parse(localStorage.getItem("projectId")) || [];
 
-const params = new URLSearchParams(window.location.search);
+let params = new URLSearchParams(window.location.search);
 let projectId = params.get("id");
 
 let loggedInEmail = localStorage.getItem("savedEmail");
@@ -154,10 +154,10 @@ function renderStatusTask(listStatus, list) {
 function getMonthDay(date) {
   if (!date) return "";
 
-  const parts = date.split("-");
+  let parts = date.split("-");
   if (parts.length !== 3) return "";
 
-  const [year, month, day] = parts;
+  let [year, month, day] = parts;
 
   return `${month} - ${day}`;
 }
@@ -299,11 +299,11 @@ function editTask(taskId) {
 
     document.getElementById("status").value = statusValue;
 
-    const formatDateForInput = (dateString) => {
+    let formatDateForInput = (dateString) => {
       if (!dateString) return "";
 
-      const date = new Date(dateString);
-      const year = date.getFullYear();
+      let date = new Date(dateString);
+      let year = date.getFullYear();
 
       if (year < 1900 || year > 2100) return "";
 
@@ -573,3 +573,57 @@ function addNewUser() {
     modal.hide();
   }
 }
+
+function membersProject() {
+  let membersContainer = document.getElementById("membersContainer");
+  membersContainer.innerHTML = "";
+
+  let project = projects.find((el) => el.id == projectId);
+  if (!project) return;
+
+  project.members.forEach((member) => {
+    let user = users.find((u) => u.id === member.userId);
+    if (!user) return;
+
+    let initials = user.fullName
+      .trim()
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
+      .toUpperCase();
+
+    membersContainer.innerHTML += `
+      <div class="d-flex justify-content-between align-items-center mb-3 w-100">
+        <div class="d-flex align-items-center w-50">
+          <a href="mailto:${user.email}"
+             class="user-avatar d-flex justify-content-center align-items-center me-3"
+             style="background-color: #007bff; width: 40px; height: 40px; border-radius: 50%; color: white; text-decoration: none;">
+            ${initials}
+          </a>
+          <div>
+            <div class="user-name fw-bold">${user.fullName}</div>
+            <div class="user-email text-muted small">${user.email}</div>
+          </div>
+        </div>
+        <div class="w-50 d-flex align-items-center ms-5">
+          <input id="${member.userId}" type="text" class="form-control form-control-sm w-75 me-2" value="${member.role}">
+          <img src="/assets/img/Trash.png" alt="delete" style="width: 20px; height: 20px;">
+        </div>
+      </div>`;
+  });
+}
+
+function editRole() {
+  let project = projects.find((el) => el.id == projectId);
+
+  project.members.forEach((member) => {
+    let input = document.getElementById(`${member.userId}`);
+    if (input) {
+      member.role = input.value;
+    }
+  });
+
+  localStorage.setItem("projects", JSON.stringify(projects));
+}
+
+document.getElementById("editRole").addEventListener("click", editRole);
