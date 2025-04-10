@@ -10,8 +10,76 @@
 </head>
 
 <body>
+    <nav class="nav d-flex justify-content-around" style="padding: 13px 0px;">
+        <span class="nav" style="padding-right: 200px;">
+            <h4>Quản lý dự án</h4>
+        </span>
+        <span class="d-flex" style="padding-left: 200px;">
+            <a class="nav-link active" aria-current="page" href="/pages/dashboard.html" style="opacity: 0.5;">Dự án</a>
+            <a class="nav-link" href="#">Nhiệm vụ của tôi</a>
+            <a class="nav-link" href="/pages/logIn.html" onclick="logOut()">Đăng xuất</a>
+        </span>
+    </nav>
+
+    <div class="container-content">
+
+        <div class="content">
+            <div class="header-container">
+                <h2>Quản lý nhiệm vụ</h2>
+                <span class="d-flex justify-content-end gap-2">
+                    <select name="" id="">
+                        <option value="">Sắp xếp theo</option>
+                    </select>
+                    <input type="text" class="ps-2" placeholder="Tìm kiếm nhiệm vụ" style="width: 220px; height: 38px;">
+                </span>
+            </div>
+
+            <div id="container">
+                <h4>Danh sách nhiệm vụ</h4>
+
+                <table class="table table-bordered" id="tableTask">
+                    <thead class="text-center">
+                        <tr>
+                            <th class="col-3">Tên Nhiệm Vụ</th>
+                            <th class="col-1">Độ ưu tiên</th>
+                            <th class="col-2">Trạng thái</th>
+                            <th class="col-1">Ngày Bắt Đầu</th>
+                            <th class="col-1">Hạn Chót</th>
+                            <th class="col-1">Tiến Độ</th>
+                        </tr>
+                    </thead>
 
 
+                </table>
+
+            </div>
+
+        </div>
+
+        <footer class="text-center footer">
+            <p>&copy; 2025 Team manageent. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- xác nhận cập nhật trạng thái nhiệm vụ -->
+    <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật trạng thái</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Xác nhận cập nhật trạng thái nhiệm vụ
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateStatus">Xác
+                        nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

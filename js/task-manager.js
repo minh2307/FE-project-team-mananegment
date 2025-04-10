@@ -8,6 +8,13 @@ let projectId = params.get("id");
 
 let loggedInEmail = localStorage.getItem("savedEmail");
 
+let sectionStatus = {
+  toDo: false,
+  inProgress: false,
+  pending: false,
+  done: false,
+};
+
 function logOut() {
   localStorage.removeItem("savedEmail");
 }
@@ -71,13 +78,6 @@ function renderProduct(projectId) {
 }
 
 let filterTasks = tasks.filter((el) => el.projectId == projectId);
-
-let sectionStatus = {
-  toDo: false,
-  inProgress: false,
-  pending: false,
-  done: false,
-};
 
 function renderToDo() {
   let renderToDo = filterTasks.filter(
@@ -686,3 +686,49 @@ function deleteUser(userId) {
 
   membersProject();
 }
+
+document.getElementById("search").addEventListener("input", function () {
+  let searchValue = document
+    .getElementById("search")
+    .value.trim()
+    .toLowerCase();
+
+  if (searchValue) {
+    let task = tasks.filter((el) => el.projectId == projectId);
+    let filteredTasks = task.filter((task) =>
+      task.taskName.includes(searchValue)
+    );
+    console.log("sd", filteredTasks);
+
+    sectionStatus = {
+      toDo: true,
+      inProgress: true,
+      pending: true,
+      done: true,
+    };
+
+    filteredTasks.forEach((task) => {
+      if (task.status === "To do") {
+        sectionStatus["toDo"] = false;
+        renderToDo();
+      }
+      if (task.status === "In progress") {
+        sectionStatus["inProgress"] = false;
+        renderInProgress();
+      }
+      if (task.status === "Pending") {
+        sectionStatus["pending"] = false;
+        renderPending();
+      }
+      if (task.status === "Done") {
+        sectionStatus["done"] = false;
+        renderDone();
+      }
+    });
+
+    if (sectionStatus["toDo"]) renderToDo();
+    if (sectionStatus["inProgress"]) renderInProgress();
+    if (sectionStatus["pending"]) renderPending();
+    if (sectionStatus["done"]) renderDone();
+  }
+});
