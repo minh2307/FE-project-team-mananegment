@@ -645,7 +645,7 @@ function membersProject() {
       <div class="d-flex justify-content-between align-items-center mb-3 w-100">
         <div class="d-flex align-items-center w-50">
           <a href="mailto:${user.email}"
-             class="user-avatar d-flex justify-content-center align-items-center me-3"
+             class="user-avatar d-flex justify-content-center align-items-center me-3 ms-4"
              style="background-color: #007bff; width: 40px; height: 40px; border-radius: 50%; color: white; text-decoration: none;">
             ${initials}
           </a>

@@ -16,18 +16,27 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-function rendertasks() {
-  let userTasks = tasks.filter((el) => el.assigneeId === user.id);
+let userTasks = tasks.filter((el) => el.assigneeId === user.id);
 
+function rendertasks() {
   let projectIds = userTasks.map((task) => task.projectId);
 
   let uniqueProjectIds = projectIds.filter(
     (id, index) => projectIds.indexOf(id) === index
   );
 
-  let tableTask = document.getElementById("tableTask");
+  let tableTask = document.getElementById("taskBody");
 
-  tableTask.innerHTML = "";
+  tableTask.innerHTML = ` <thead class="text-center" id="thead">
+                        <tr>
+                            <th class="col-3">Tên Nhiệm Vụ</th>
+                            <th class="col-1">Độ ưu tiên</th>
+                            <th class="col-2">Trạng thái</th>
+                            <th class="col-1">Ngày Bắt Đầu</th>
+                            <th class="col-1">Hạn Chót</th>
+                            <th class="col-1">Tiến Độ</th>
+                        </tr>
+                    </thead>`;
 
   for (let value of uniqueProjectIds) {
     let nameProject = projects.find((el) => el.id === value);
@@ -133,4 +142,34 @@ function updateStatus(taskId) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
   rendertasks();
+}
+
+// Hàm sắp xếp theo độ ưu tiên
+function sortByPriority(tasks) {
+  let priorityOrder = { Cao: 3, "Trung bình": 2, Thấp: 1 };
+  return tasks.sort(
+    (a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
+  );
+}
+
+// Hàm sắp xếp theo tiến độ
+function sortByProgress(tasks) {
+  let progressOrder = { "Trễ hạn": 3, "Có rủi ro": 2, "Đúng tiến độ": 1 };
+  return tasks.sort(
+    (a, b) => progressOrder[b.progress] - progressOrder[a.progress]
+  );
+}
+
+function sort() {
+  let sortSelect = document.getElementById("sort");
+  let sortValue = sortSelect.value;
+  console.log(sortValue);
+
+  if (sortValue === "priority") {
+    userTasks = sortByPriority(userTasks);
+    rendertasks();
+  } else if (sortValue === "progress") {
+    userTasks = sortByProgress(userTasks);
+    rendertasks();
+  }
 }

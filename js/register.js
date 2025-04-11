@@ -99,6 +99,8 @@ function register(e) {
 
     document.querySelector("form").reset();
 
+    localStorage.setItem("savedEmail", email);
+
     location.href = "/pages/dashboard.html";
   }
 }

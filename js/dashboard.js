@@ -202,9 +202,9 @@ function addProject() {
 
     localStorage.setItem("projects", JSON.stringify(projects));
 
-    let indexPage = Math.ceil(projects.length / 5);
+    // let indexPage = Math.ceil(projects.length / 5);
 
-    renderProjects(indexPage);
+    renderProjects(1);
   }
 }
 
