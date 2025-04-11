@@ -30,10 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderProduct(projectId) {
   let nameProject = document.getElementById("nameProject");
   let findProject = projects.find((el) => el.id == projectId);
-  if (!findProject) {
-    console.error(`Không tìm thấy dự án với ID ${projectId}`);
-    return;
-  }
 
   nameProject.textContent = findProject.projectName;
 
@@ -44,17 +40,19 @@ function renderProduct(projectId) {
   let userName2 = document.getElementsByClassName("user-name")[1];
   let userAvatar1 = document.getElementsByClassName("user-avatar")[0];
   let userAvatar2 = document.getElementsByClassName("user-avatar")[1];
+  let role1 = document.getElementsByClassName("user-role")[0];
+  let role2 = document.getElementsByClassName("user-role")[1];
 
-  if (findProject.members && findProject.members.length >= 2) {
-    let user1 = users[findProject.members[0].userId - 1];
-    let user2 = users[findProject.members[1].userId - 1];
-    if (!user1 || !user2) {
-      console.error("Không tìm thấy user cho một hoặc cả hai thành viên");
-      return;
+  if (findProject.members && findProject.members.length > 0) {
+    if (findProject.members.length === 1) {
+      userAvatar2.style.opacity = "0";
     }
 
+    let user1 = users[findProject.members[0].userId - 1];
+    let user2 = users[findProject.members[1]?.userId - 1];
+
     let userFullName1 = user1.fullName;
-    let userFullName2 = user2.fullName;
+    let userFullName2 = user2?.fullName;
 
     let text1 = userFullName1.trim().split(" ");
     let initials1 = text1
@@ -62,9 +60,9 @@ function renderProduct(projectId) {
       .join("")
       .toUpperCase();
 
-    let text2 = userFullName2.trim().split(" ");
+    let text2 = userFullName2?.trim().split(" ");
     let initials2 = text2
-      .map((word) => word.charAt(0))
+      ?.map((word) => word.charAt(0))
       .join("")
       .toUpperCase();
 
@@ -73,7 +71,9 @@ function renderProduct(projectId) {
     userAvatar1.textContent = initials1;
     userAvatar2.textContent = initials2;
     userAvatar1.href = `mailto:${user1.email}`;
-    userAvatar2.href = `mailto:${user2.email}`;
+    userAvatar2.href = `mailto:${user2?.email}`;
+    role1.textContent = findProject.members[0].role;
+    role2.textContent = findProject.members[1]?.role;
   }
 }
 
@@ -620,6 +620,7 @@ function addNewUser() {
     roleInput.value = "";
 
     modal.hide();
+    renderProduct(projectId);
   }
 }
 

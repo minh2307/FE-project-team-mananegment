@@ -54,6 +54,17 @@ function pagination(activePage = 1, filteredProjects) {
         `;
 }
 
+function getFilteredProjects() {
+  return projects.filter(
+    (project) =>
+      Array.isArray(project.members) &&
+      project.members.some(
+        (member) =>
+          member.userId === loggedInUserId && member.role === "Project owner"
+      )
+  );
+}
+
 //hàm in dự án
 function renderProjects(indexPage) {
   let currentPage = indexPage;
@@ -62,14 +73,7 @@ function renderProjects(indexPage) {
 
   let filteredProjects = [];
   if (loggedInUserId) {
-    filteredProjects = projects.filter(
-      (project) =>
-        Array.isArray(project.members) &&
-        project.members.some(
-          (member) =>
-            member.userId === loggedInUserId && member.role === "Project owner"
-        )
-    );
+    filteredProjects = getFilteredProjects();
   }
 
   // Lọc theo từ khóa tìm kiếm
@@ -202,9 +206,10 @@ function addProject() {
 
     localStorage.setItem("projects", JSON.stringify(projects));
 
-    // let indexPage = Math.ceil(projects.length / 5);
+    let filteredProjects = getFilteredProjects();
+    let indexPage = Math.ceil(filteredProjects.length / 5);
 
-    renderProjects(1);
+    renderProjects(indexPage);
   }
 }
 
