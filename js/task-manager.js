@@ -43,6 +43,8 @@ function renderProduct(projectId) {
   let role1 = document.getElementsByClassName("user-role")[0];
   let role2 = document.getElementsByClassName("user-role")[1];
 
+  userAvatar2.style.opacity = "1";
+
   if (findProject.members && findProject.members.length > 0) {
     if (findProject.members.length === 1) {
       userAvatar2.style.opacity = "0";
@@ -450,7 +452,6 @@ function addNewTask() {
 
 function confirmAddTask() {
   validateTaskForm();
-
   let modal = bootstrap.Modal.getInstance(
     document.getElementById("addNewTaskModal")
   );
@@ -464,6 +465,12 @@ function confirmAddTask() {
   let task = tasks.find((el) => el.taskName === newName);
 
   console.log(task);
+
+  if (newName === "") {
+    errorTask.textContent = "Tên nhiệm vụ không được để trống";
+    taskNameInput.classList.add("error-input");
+    return;
+  }
 
   if (newName.length < 8) {
     errorTask.textContent = "Tên nhiệm vụ không được ít hơn 8 ký tự";
@@ -604,11 +611,12 @@ function addNewUser() {
     errorRole.textContent = "Vai trò người dùng không được để trống";
     roleInput.classList.add("error-input");
     isValid = false;
-  } else if (roleUser.length < 8) {
-    errorRole.textContent = "Vai trò người dùng không được ít hơn 8 ký tự";
-    roleInput.classList.add("error-input");
-    isValid = false;
   }
+  // else if (roleUser.length < 8) {
+  //   errorRole.textContent = "Vai trò người dùng không được ít hơn 8 ký tự";
+  //   roleInput.classList.add("error-input");
+  //   isValid = false;
+  // }
 
   if (isValid) {
     let project = projects.find((el) => el.id == projectId);
@@ -624,11 +632,21 @@ function addNewUser() {
   }
 }
 
-function membersProject() {
+function membersProject(cpproject = null) {
+  projects = JSON.parse(localStorage.getItem("projects")) || [];
+
   let membersContainer = document.getElementById("membersContainer");
   membersContainer.innerHTML = "";
 
-  let project = projects.find((el) => el.id == projectId);
+  let project = cpproject;
+  console.log("cp", cpproject);
+
+  if (!project) {
+    project = projects.find((el) => el.id == projectId);
+  }
+
+  console.log("project", project);
+
   if (!project) return;
 
   project.members.forEach((member) => {
@@ -673,19 +691,38 @@ function editRole() {
     }
   });
 
+  renderProduct(projectId);
   localStorage.setItem("projects", JSON.stringify(projects));
 }
 
 function deleteUser(userId) {
   let project = projects.find((el) => el.id == projectId);
 
-  let deleteIndex = project.members.findIndex((el) => el.id === userId);
+  let copyProject = JSON.parse(localStorage.getItem("projects")) || [];
+  let cpproject = copyProject.find((el) => el.id == projectId);
 
-  project.members.splice(deleteIndex, 1);
+  let deleteIndex = cpproject.members.findIndex((el) => el.id === userId);
 
-  localStorage.setItem("projects", JSON.stringify(projects));
+  cpproject.members.splice(deleteIndex, 1);
+  console.log(copyProject);
 
-  membersProject();
+  console.log("copy", cpproject);
+
+  membersProject(
+    project.members.length !== cpproject.members.length ? cpproject : project
+  );
+
+  let editRole = document.getElementById("editRole");
+  console.log(editRole);
+
+  editRole.addEventListener("click", function () {
+    console.log(1234567);
+    localStorage.setItem("projects", JSON.stringify(copyProject));
+
+    projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+    renderProduct(projectId);
+  });
 }
 
 document.getElementById("search").addEventListener("input", function () {
@@ -699,7 +736,7 @@ document.getElementById("search").addEventListener("input", function () {
     let filteredTasks = task.filter((task) =>
       task.taskName.includes(searchValue)
     );
-    console.log("sd", filteredTasks);
+    // console.log("sd", filteredTasks);
 
     sectionStatus = {
       toDo: true,

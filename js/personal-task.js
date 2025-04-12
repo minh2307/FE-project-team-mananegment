@@ -144,32 +144,54 @@ function updateStatus(taskId) {
   rendertasks();
 }
 
+let sortStatus = {
+  priority: false,
+  dueDate: false,
+};
+
 // Hàm sắp xếp theo độ ưu tiên
 function sortByPriority(tasks) {
   let priorityOrder = { Cao: 3, "Trung bình": 2, Thấp: 1 };
-  return tasks.sort(
-    (a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
-  );
+
+  return tasks.sort((a, b) => {
+    if (sortStatus.priority) {
+      return priorityOrder[a.priority] - priorityOrder[b.priority]; // Thấp -> Cao
+    } else {
+      return priorityOrder[b.priority] - priorityOrder[a.priority]; // Cao -> Thấp
+    }
+  });
 }
 
-// Hàm sắp xếp theo tiến độ
-function sortByProgress(tasks) {
-  let progressOrder = { "Trễ hạn": 3, "Có rủi ro": 2, "Đúng tiến độ": 1 };
-  return tasks.sort(
-    (a, b) => progressOrder[b.progress] - progressOrder[a.progress]
-  );
+// Hàm sắp xếp theo hạn chót
+function sortByDueDate(tasks) {
+  return tasks.sort((a, b) => {
+    let dateA = new Date(a.dueDate);
+    let dateB = new Date(b.dueDate);
+
+    if (sortStatus.dueDate) {
+      return dateB - dateA; // Xa -> Gần
+    } else {
+      return dateA - dateB; // Gần -> Xa
+    }
+  });
 }
 
 function sort() {
   let sortSelect = document.getElementById("sort");
   let sortValue = sortSelect.value;
-  console.log(sortValue);
+
+  // Tạo bản sao của userTasks
+  let sortedTasks = [...userTasks];
 
   if (sortValue === "priority") {
-    userTasks = sortByPriority(userTasks);
-    rendertasks();
-  } else if (sortValue === "progress") {
-    userTasks = sortByProgress(userTasks);
+    sortStatus.priority = !sortStatus.priority;
+    userTasks = sortByPriority(sortedTasks);
+  } else if (sortValue === "dueDate") {
+    sortStatus.dueDate = !sortStatus.dueDate;
+    userTasks = sortByDueDate(sortedTasks);
+  }
+
+  if (sortValue) {
     rendertasks();
   }
 }
