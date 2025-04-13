@@ -752,7 +752,6 @@ document.getElementById("search").addEventListener("input", function () {
     if (status === "done") sectionStatus.done = false;
   });
 
-  // Render lại theo filteredTasks
   renderToDo();
   renderInProgress();
   renderPending();

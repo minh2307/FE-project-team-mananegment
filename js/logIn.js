@@ -30,6 +30,6 @@ function logIn(e) {
   location.href = "/pages/dashboard.html";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector("form").addEventListener("submit", logIn);
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   document.querySelector("form").addEventListener("submit", logIn);
+// });

@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 let userTasks = tasks.filter((el) => el.assigneeId === user.id);
+console.log(userTasks);
 
 function rendertasks() {
   let projectIds = userTasks.map((task) => task.projectId);
@@ -197,3 +198,32 @@ function sort() {
 
   sortSelect.value = "";
 }
+
+document.getElementById("search").addEventListener("input", function () {
+  let searchValue = document
+    .getElementById("search")
+    .value.trim()
+    .toLowerCase();
+
+  userTasks.forEach((task) => {
+    let project = document.getElementById(`${task.projectId}`);
+    if (project) project.classList.add("closeTask");
+  });
+
+  if (!searchValue) return;
+
+  let filteredUserTasks = userTasks.filter((task) =>
+    task.taskName.toLowerCase().includes(searchValue)
+  );
+
+  let ProjectIds = filteredUserTasks
+    .map((task) => task.projectId)
+    .filter((id, index, arr) => arr.indexOf(id) === index);
+
+  console.log(ProjectIds);
+
+  ProjectIds.forEach((el) => {
+    let project = document.getElementById(`${el}`);
+    project.classList.remove("closeTask");
+  });
+});
