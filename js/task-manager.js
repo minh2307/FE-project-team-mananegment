@@ -731,42 +731,30 @@ document.getElementById("search").addEventListener("input", function () {
     .value.trim()
     .toLowerCase();
 
-  if (searchValue) {
-    let task = tasks.filter((el) => el.projectId == projectId);
-    let filteredTasks = task.filter((task) =>
-      task.taskName.includes(searchValue)
-    );
-    // console.log("sd", filteredTasks);
+  let tasksInProject = tasks.filter((el) => el.projectId == projectId);
+  let filteredTasks = tasksInProject.filter((task) =>
+    task.taskName.toLowerCase().includes(searchValue)
+  );
 
-    sectionStatus = {
-      toDo: true,
-      inProgress: true,
-      pending: true,
-      done: true,
-    };
+  // Reset trạng thái hiển thị
+  sectionStatus = {
+    toDo: true,
+    inProgress: true,
+    pending: true,
+    done: true,
+  };
 
-    filteredTasks.forEach((task) => {
-      if (task.status === "To do") {
-        sectionStatus["toDo"] = false;
-        renderToDo();
-      }
-      if (task.status === "In progress") {
-        sectionStatus["inProgress"] = false;
-        renderInProgress();
-      }
-      if (task.status === "Pending") {
-        sectionStatus["pending"] = false;
-        renderPending();
-      }
-      if (task.status === "Done") {
-        sectionStatus["done"] = false;
-        renderDone();
-      }
-    });
+  filteredTasks.forEach((task) => {
+    let status = task.status.toLowerCase();
+    if (status === "to do") sectionStatus.toDo = false;
+    if (status === "in progress") sectionStatus.inProgress = false;
+    if (status === "pending") sectionStatus.pending = false;
+    if (status === "done") sectionStatus.done = false;
+  });
 
-    if (sectionStatus["toDo"]) renderToDo();
-    if (sectionStatus["inProgress"]) renderInProgress();
-    if (sectionStatus["pending"]) renderPending();
-    if (sectionStatus["done"]) renderDone();
-  }
+  // Render lại theo filteredTasks
+  renderToDo();
+  renderInProgress();
+  renderPending();
+  renderDone();
 });

@@ -194,4 +194,6 @@ function sort() {
   if (sortValue) {
     rendertasks();
   }
+
+  sortSelect.value = "";
 }
