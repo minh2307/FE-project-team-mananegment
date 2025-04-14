@@ -29,7 +29,3 @@ function logIn(e) {
   localStorage.setItem("savedEmail", emailValue);
   location.href = "/pages/dashboard.html";
 }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   document.querySelector("form").addEventListener("submit", logIn);
-// });

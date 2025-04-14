@@ -210,7 +210,7 @@ document.getElementById("search").addEventListener("input", function () {
     if (project) project.classList.add("closeTask");
   });
 
-  if (!searchValue) return; 
+  if (!searchValue) return;
 
   let filteredUserTasks = userTasks.filter((task) =>
     task.taskName.toLowerCase().includes(searchValue)
