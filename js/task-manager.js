@@ -639,13 +639,10 @@ function membersProject(cpproject = null) {
   membersContainer.innerHTML = "";
 
   let project = cpproject;
-  console.log("cp", cpproject);
 
   if (!project) {
     project = projects.find((el) => el.id == projectId);
   }
-
-  console.log("project", project);
 
   if (!project) return;
 
@@ -695,28 +692,39 @@ function editRole() {
   localStorage.setItem("projects", JSON.stringify(projects));
 }
 
+let copyProject = JSON.parse(localStorage.getItem("projects")) || [];
+
 function deleteUser(userId) {
   let project = projects.find((el) => el.id == projectId);
 
-  let copyProject = JSON.parse(localStorage.getItem("projects")) || [];
   let cpproject = copyProject.find((el) => el.id == projectId);
+  console.log(userId);
 
-  let deleteIndex = cpproject.members.findIndex((el) => el.id === userId);
+  console.log(cpproject);
+
+  let deleteIndex = cpproject.members.findIndex((el) => {
+    return el.userId == userId;
+  });
+  console.log(deleteIndex);
+
+  let usersTask = document.getElementById("usersTask");
+
+  if (
+    project.members.length !== cpproject.members.length ||
+    !usersTask.classList.contains("show")
+  ) {
+    copyProject = JSON.parse(localStorage.getItem("projects")) || [];
+  }
 
   cpproject.members.splice(deleteIndex, 1);
-  console.log(copyProject);
-
-  console.log("copy", cpproject);
 
   membersProject(
     project.members.length !== cpproject.members.length ? cpproject : project
   );
 
   let editRole = document.getElementById("editRole");
-  console.log(editRole);
 
   editRole.addEventListener("click", function () {
-    console.log(1234567);
     localStorage.setItem("projects", JSON.stringify(copyProject));
 
     projects = JSON.parse(localStorage.getItem("projects")) || [];
