@@ -1,6 +1,13 @@
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let projects = JSON.parse(localStorage.getItem("projects")) || [];
+let loggedInEmail = localStorage.getItem("savedEmail");
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (loggedInEmail) {
+    window.location.href = "/pages/dashboard.html";
+  }
+});
 
 function register(e) {
   e.preventDefault();
@@ -100,7 +107,6 @@ function register(e) {
     document.querySelector("form").reset();
 
     localStorage.setItem("savedEmail", email);
-
     location.href = "/pages/dashboard.html";
   }
 }

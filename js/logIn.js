@@ -1,4 +1,11 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
+let loggedInEmail = localStorage.getItem("savedEmail");
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (loggedInEmail) {
+    window.location.href = "/pages/dashboard.html";
+  }
+});
 
 function logIn(e) {
   e.preventDefault();
@@ -14,8 +21,6 @@ function logIn(e) {
     (user) => user.email === emailValue && user.password === passwordValue
   );
 
-  console.log("User:", user);
-
   if (!user) {
     error.textContent = "Email hoặc mật khẩu không đúng.";
     locationEmail.classList.add("error-input");
@@ -26,6 +31,7 @@ function logIn(e) {
   error.textContent = "";
   locationEmail.classList.remove("error-input");
   passWord.classList.remove("error-input");
+
   localStorage.setItem("savedEmail", emailValue);
   location.href = "/pages/dashboard.html";
 }
